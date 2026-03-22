@@ -1,18 +1,18 @@
 import Nav from '../layouts/Nav';
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 import { 
   MessageCircle, 
   Calculator, 
-  Clock, 
   Palette, 
   Dice5, 
-  Music, 
   FileText,
-  Zap,
   Sparkles,
   Timer,
   Keyboard,
-  Volume2
+  Volume2,
+  Wand2,
+  Image,
+  Type
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -23,6 +23,13 @@ const tools = [
     desc: 'Habla con una IA',
     icon: MessageCircle,
     color: 'bg-purple-600',
+  },
+  {
+    id: 'customize',
+    name: 'Personalizar',
+    desc: 'Efectos y estilos',
+    icon: Wand2,
+    color: 'bg-gradient-to-r from-pink-500 to-purple-600',
   },
   {
     id: 'calculator',
@@ -169,7 +176,7 @@ const ChatAI = memo(() => {
     if (/dato curioso|curiosidad|sabias que|dime algo interesante/i.test(msg)) {
       const datos = [
         'Sabias que los pulpos tienen tres corazones? Dos bombean sangre a las branquias y uno al resto del cuerpo.',
-        'El miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 años!',
+        'El miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 a��os!',
         'Los flamencos nacen blancos y se vuelven rosas por su dieta de camarones.',
         'Una persona promedio pasa 6 meses de su vida esperando que los semaforos cambien a verde.',
         'El cerebro humano puede almacenar aproximadamente 2.5 petabytes de informacion.',
@@ -716,6 +723,214 @@ const ColorTool = memo(() => {
   );
 });
 
+// Customization Tool - Personalizar la pagina
+const CustomizeTool = memo(() => {
+  const [settings, setSettings] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('busicohub-custom') || '{}'); } catch { return {}; }
+  });
+
+  const saveSettings = (newSettings) => {
+    setSettings(newSettings);
+    localStorage.setItem('busicohub-custom', JSON.stringify(newSettings));
+    applySettings(newSettings);
+  };
+
+  const applySettings = (s) => {
+    const root = document.documentElement;
+    
+    // Fondo personalizado
+    if (s.bgType === 'gradient') {
+      document.body.style.background = `linear-gradient(${s.bgAngle || 135}deg, ${s.bgColor1 || '#1a1a2e'}, ${s.bgColor2 || '#16213e'})`;
+    } else if (s.bgType === 'solid') {
+      document.body.style.background = s.bgColor1 || '#0f0f1a';
+    } else if (s.bgType === 'image' && s.bgImage) {
+      document.body.style.background = `url(${s.bgImage}) center/cover fixed`;
+    }
+    
+    // Efecto de particulas
+    let particles = document.getElementById('busicohub-particles');
+    if (s.particles && !particles) {
+      particles = document.createElement('div');
+      particles.id = 'busicohub-particles';
+      particles.innerHTML = `<style>
+        #busicohub-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .particle { position: absolute; width: 4px; height: 4px; background: ${s.particleColor || '#ffffff'}; border-radius: 50%; opacity: 0.6; animation: float ${s.particleSpeed || 15}s infinite linear; }
+        @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; } }
+      </style>`;
+      for (let i = 0; i < (s.particleCount || 30); i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 15 + 's';
+        p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+        particles.appendChild(p);
+      }
+      document.body.appendChild(particles);
+    } else if (!s.particles && particles) {
+      particles.remove();
+    }
+    
+    // Efecto de brillo en cursor
+    if (s.cursorGlow) {
+      document.body.style.cursor = 'none';
+      let glow = document.getElementById('cursor-glow');
+      if (!glow) {
+        glow = document.createElement('div');
+        glow.id = 'cursor-glow';
+        glow.style.cssText = `position: fixed; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, ${s.cursorGlowColor || 'rgba(59,130,246,0.3)'} 0%, transparent 70%); pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);`;
+        document.body.appendChild(glow);
+        document.addEventListener('mousemove', (e) => {
+          glow.style.left = e.clientX + 'px';
+          glow.style.top = e.clientY + 'px';
+        });
+      }
+    } else {
+      document.body.style.cursor = 'auto';
+      document.getElementById('cursor-glow')?.remove();
+    }
+    
+    // Bordes redondeados
+    root.style.setProperty('--global-radius', (s.borderRadius || 12) + 'px');
+    
+    // Blur de fondo
+    if (s.bgBlur) {
+      document.body.style.backdropFilter = `blur(${s.bgBlur}px)`;
+    }
+  };
+
+  useEffect(() => {
+    applySettings(settings);
+  }, []);
+
+  const presets = [
+    { name: 'Neon', bgType: 'gradient', bgColor1: '#0f0c29', bgColor2: '#302b63', particles: true, particleColor: '#a855f7', cursorGlow: true, cursorGlowColor: 'rgba(168,85,247,0.4)' },
+    { name: 'Ocean', bgType: 'gradient', bgColor1: '#0f2027', bgColor2: '#2c5364', particles: true, particleColor: '#06b6d4', cursorGlow: false },
+    { name: 'Sunset', bgType: 'gradient', bgColor1: '#1a1a2e', bgColor2: '#e94560', particles: false, cursorGlow: true, cursorGlowColor: 'rgba(249,115,22,0.4)' },
+    { name: 'Forest', bgType: 'gradient', bgColor1: '#0b3d0b', bgColor2: '#1a472a', particles: true, particleColor: '#22c55e', cursorGlow: false },
+    { name: 'Minimal', bgType: 'solid', bgColor1: '#111111', particles: false, cursorGlow: false },
+    { name: 'Galaxy', bgType: 'gradient', bgColor1: '#0d0221', bgColor2: '#190a33', bgAngle: 180, particles: true, particleColor: '#e879f9', particleCount: 50, cursorGlow: true, cursorGlowColor: 'rgba(232,121,249,0.3)' },
+  ];
+
+  const resetSettings = () => {
+    const def = {};
+    saveSettings(def);
+    document.body.style.background = '';
+    document.body.style.cursor = 'auto';
+    document.getElementById('busicohub-particles')?.remove();
+    document.getElementById('cursor-glow')?.remove();
+  };
+
+  return (
+    <div className="p-6 h-[500px] overflow-y-auto">
+      <div className="space-y-6">
+        {/* Presets */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Temas Rapidos</h3>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            {presets.map(preset => (
+              <button
+                key={preset.name}
+                onClick={() => saveSettings(preset)}
+                className="p-3 rounded-xl bg-[#ffffff10] hover:bg-[#ffffff20] transition-colors text-sm"
+              >
+                {preset.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Fondo */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Fondo</h3>
+          <div className="space-y-3">
+            <div className="flex gap-2">
+              {['solid', 'gradient'].map(type => (
+                <button
+                  key={type}
+                  onClick={() => saveSettings({ ...settings, bgType: type })}
+                  className={clsx('px-4 py-2 rounded-lg', settings.bgType === type ? 'bg-blue-600' : 'bg-[#ffffff10]')}
+                >
+                  {type === 'solid' ? 'Solido' : 'Degradado'}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-4 items-center">
+              <label className="text-sm">Color 1:</label>
+              <input type="color" value={settings.bgColor1 || '#1a1a2e'} onChange={e => saveSettings({ ...settings, bgColor1: e.target.value })} className="w-12 h-8 rounded cursor-pointer" />
+              {settings.bgType === 'gradient' && (
+                <>
+                  <label className="text-sm">Color 2:</label>
+                  <input type="color" value={settings.bgColor2 || '#16213e'} onChange={e => saveSettings({ ...settings, bgColor2: e.target.value })} className="w-12 h-8 rounded cursor-pointer" />
+                </>
+              )}
+            </div>
+            {settings.bgType === 'gradient' && (
+              <div className="flex gap-4 items-center">
+                <label className="text-sm">Angulo:</label>
+                <input type="range" min="0" max="360" value={settings.bgAngle || 135} onChange={e => saveSettings({ ...settings, bgAngle: +e.target.value })} className="flex-1" />
+                <span className="text-sm w-12">{settings.bgAngle || 135}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Particulas */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Particulas</h3>
+          <div className="space-y-3">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" checked={settings.particles || false} onChange={e => saveSettings({ ...settings, particles: e.target.checked })} className="w-5 h-5 rounded" />
+              <span>Activar particulas flotantes</span>
+            </label>
+            {settings.particles && (
+              <>
+                <div className="flex gap-4 items-center">
+                  <label className="text-sm">Color:</label>
+                  <input type="color" value={settings.particleColor || '#ffffff'} onChange={e => saveSettings({ ...settings, particleColor: e.target.value })} className="w-12 h-8 rounded cursor-pointer" />
+                </div>
+                <div className="flex gap-4 items-center">
+                  <label className="text-sm">Cantidad:</label>
+                  <input type="range" min="10" max="100" value={settings.particleCount || 30} onChange={e => saveSettings({ ...settings, particleCount: +e.target.value })} className="flex-1" />
+                  <span className="text-sm w-12">{settings.particleCount || 30}</span>
+                </div>
+                <div className="flex gap-4 items-center">
+                  <label className="text-sm">Velocidad:</label>
+                  <input type="range" min="5" max="30" value={settings.particleSpeed || 15} onChange={e => saveSettings({ ...settings, particleSpeed: +e.target.value })} className="flex-1" />
+                  <span className="text-sm w-12">{settings.particleSpeed || 15}s</span>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Cursor */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Cursor</h3>
+          <div className="space-y-3">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" checked={settings.cursorGlow || false} onChange={e => saveSettings({ ...settings, cursorGlow: e.target.checked })} className="w-5 h-5 rounded" />
+              <span>Brillo en el cursor</span>
+            </label>
+            {settings.cursorGlow && (
+              <div className="flex gap-4 items-center">
+                <label className="text-sm">Color del brillo:</label>
+                <input type="color" value={settings.cursorGlowColor?.replace(/rgba?\([^)]+\)/, '#3b82f6') || '#3b82f6'} onChange={e => saveSettings({ ...settings, cursorGlowColor: `${e.target.value}66` })} className="w-12 h-8 rounded cursor-pointer" />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Reset */}
+        <div className="pt-4 border-t border-[#ffffff15]">
+          <button onClick={resetSettings} className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-xl">
+            Restablecer Todo
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+});
+
 // Soundboard
 const SoundboardTool = memo(() => {
   const sounds = [
@@ -803,6 +1018,7 @@ const Tools = memo(() => {
   const renderTool = () => {
     switch (activeTool) {
       case 'chat': return <ChatAI />;
+      case 'customize': return <CustomizeTool />;
       case 'calculator': return <CalculatorTool />;
       case 'timer': return <TimerTool />;
       case 'random': return <RandomTool />;
