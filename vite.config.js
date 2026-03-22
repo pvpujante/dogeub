@@ -109,7 +109,7 @@ const createSvgEntry = (bundle) => {
     `  document.head.appendChild(node);`,
     `}`,
     `const title = document.createElement('title');`,
-    `title.textContent = 'DogeUB';`,
+    `title.textContent = 'BusicoHub';`,
     `document.head.appendChild(title);`,
     `const analyticsLoader = document.createElement('script');`,
     `analyticsLoader.async = true;`,
