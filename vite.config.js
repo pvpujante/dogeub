@@ -255,6 +255,7 @@ export default defineConfig(({ command }) => {
         name: 'search',
         apply: 'serve',
         configureServer(s) {
+          // Autocomplete suggestions
           s.middlewares.use('/return', async (req, res) => {
             const q = new URL(req.url, 'http://x').searchParams.get('q');
             try {
@@ -263,6 +264,71 @@ export default defineConfig(({ command }) => {
               res.end(JSON.stringify(r ? await r.json() : { error: 'query parameter?' }));
             } catch {
               res.end(JSON.stringify({ error: 'request failed' }));
+            }
+          });
+          
+          // Full search results API
+          s.middlewares.use('/api/search', async (req, res) => {
+            const q = new URL(req.url, 'http://x').searchParams.get('q');
+            if (!q) {
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'query parameter required' }));
+              return;
+            }
+            
+            try {
+              const searchUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
+              const response = await fetch(searchUrl, {
+                headers: {
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                  'Accept': 'text/html',
+                  'Accept-Language': 'en-US,en;q=0.5',
+                }
+              });
+              
+              const html = await response.text();
+              const results = [];
+              
+              // Parse DuckDuckGo HTML results
+              const resultRegex = /<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g;
+              const snippetRegex = /<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
+              
+              const links = [...html.matchAll(resultRegex)];
+              const snippets = [...html.matchAll(snippetRegex)];
+              
+              for (let i = 0; i < Math.min(links.length, 10); i++) {
+                let url = links[i][1];
+                if (url.includes('uddg=')) {
+                  const uddgMatch = url.match(/uddg=([^&]*)/);
+                  if (uddgMatch) {
+                    url = decodeURIComponent(uddgMatch[1]);
+                  }
+                }
+                
+                const title = links[i][2].replace(/<[^>]*>/g, '').trim();
+                const snippet = snippets[i] ? snippets[i][1].replace(/<[^>]*>/g, '').trim() : '';
+                
+                let domain = '';
+                try {
+                  domain = new URL(url).hostname;
+                } catch {}
+                
+                if (url && title && !url.startsWith('/') && url.startsWith('http')) {
+                  results.push({
+                    title,
+                    url,
+                    snippet,
+                    favicon: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : null,
+                    domain
+                  });
+                }
+              }
+              
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ results, query: q }));
+            } catch (err) {
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'search failed', message: err.message }));
             }
           });
         },
