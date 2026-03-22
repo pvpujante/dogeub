@@ -174,76 +174,44 @@
   "games": {
     "Popular": [
       {
+        "appName": "Retro Bowl",
+        "desc": "All-Time favorites",
+        "icon": "/assets/img/retro.webp",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/retrobowl.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
         "appName": "Slope",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=slope-game.github.io",
-        "url": "https://slope-game.github.io/",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/slope/assets/images/icons/icon-192x192.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/slope.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "2048",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=play2048.co",
-        "url": "https://play2048.co/",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/2048/meta/apple-touch-icon.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/2048.zip",
         "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "Cookie Clicker",
-        "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=orteil.dashnet.org",
-        "url": "https://orteil.dashnet.org/cookieclicker/",
-        "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "Crossy Road",
-        "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=poki.com",
-        "url": "https://html5.gamedistribution.com/rvvASMiM/e98541b0a3fc4ad89ec05bfc09c1e3a9/index.html",
-        "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "Subway Surfers",
         "desc": "All-Time favorites",
         "icon": "https://play-lh.googleusercontent.com/lvIf3Z5rW9RzMhh3ZTVYALMrPgK2l88K8EznEVzjHFiYI4zXAiQDT8G0HLqZfyTwpg",
-        "url": "https://yell0wsuit.page/assets/games/poki-subway-surfers/game.html",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/subway-surfers.zip",
         "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "Tetris",
-        "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=tetris.com",
-        "url": "https://tetris.com/play-tetris",
-        "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "Flappy Bird",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=flappybird.io",
-        "url": "https://flappybird.io/",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/flappybird/favicon.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/flappybird.zip",
         "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "GeForce Now",
-        "desc": "All-Time favorites",
-        "icon": "/assets/img/geforcenow.webp",
-        "url": "https://play.geforcenow.com",
-        "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "Roblox",
-        "desc": "All-Time favorites",
-        "icon": "/assets/img/roblox.webp",
-        "url": "https://99.ip.nowgg.fun/apps/a/19900/b.html",
-        "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "Five Nights at Epstein's",
@@ -257,22 +225,6 @@
         "local": true
       },
       {
-        "appName": "Neal.fun",
-        "desc": "All-Time favorites",
-        "icon": "/assets/img/nf.webp",
-        "url": "https://neal.fun",
-        "disabled": false,
-        "local": false
-      },
-      {
-        "appName": "Retro Bowl",
-        "desc": "Sport apps",
-        "icon": "/assets/img/retro.webp",
-        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/rbo.zip",
-        "disabled": false,
-        "local": true
-      },
-      {
         "appName": "BasketBros.io",
         "desc": "Sport apps",
         "icon": "/assets/img/basketbros.webp",
@@ -281,36 +233,76 @@
         "local": true
       },
       {
-        "appName": "Minecraft Classic",
+        "appName": "Cookie Clicker",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=classic.minecraft.net",
-        "url": "https://classic.minecraft.net/",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cookieclicker/img/favicon.ico",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cookieclicker.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
-        "appName": "Doodle Jump",
+        "appName": "Awesome Tanks 2",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=doodlejump.io",
-        "url": "https://doodlejump.io/",
+        "icon": "/assets/img/atanks2.webp",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/atnk-v2.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
-        "appName": "Temple Run 2",
+        "appName": "Rooftop Snipers",
         "desc": "All-Time favorites",
-        "icon": "https://play-lh.googleusercontent.com/YXD_0oLdmGJ4L9qHjXFhKQfExm1Pw2eAGP3NL04vkZRkr8_HnJ5Hgz0xebVpSS5oKas",
-        "url": "https://html5.gamedistribution.com/rvvASMiM/e41a7e5a7c074f3a9dc53fd3e0bab5f1/index.html",
+        "icon": "https://img.poki.com/cdn-cgi/image/quality=78,width=600,height=600,fit=cover,f=auto/c127771edb0e821e4109b7058ae3f094.jpeg",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/snip-roof.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
-        "appName": "Drift Hunters",
+        "appName": "Drift Boss",
         "desc": "All-Time favorites",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=drifthunters.io",
-        "url": "https://drifthunters.io/",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/driftboss/images/logo.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/driftboss.zip",
         "disabled": false,
-        "local": false
+        "local": true
+      },
+      {
+        "appName": "Crossy Road",
+        "desc": "All-Time favorites",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/crossyroad/images/icon.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/crossyroad.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Run 3",
+        "desc": "All-Time favorites",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/run3/Run3_Icon.ico",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/run3.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Moto X3M",
+        "desc": "All-Time favorites",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/motox3m/favicon.ico",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/motox3m.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Jetpack Joyride",
+        "desc": "All-Time favorites",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/jetpackjoyride/icon.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/jetpackjoyride.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Cut the Rope",
+        "desc": "All-Time favorites",
+        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cuttherope/icon.png",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cuttherope.zip",
+        "disabled": false,
+        "local": true
       }
     ],
     "Action": [
@@ -318,9 +310,9 @@
         "appName": "1v1.lol",
         "desc": "Fun Action",
         "icon": "/assets/img/1v1.webp",
-        "url": "https://1v1.lol",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/1v1lol.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "Awesome Tanks 2",
@@ -342,9 +334,9 @@
         "appName": "BuildNow.GG",
         "desc": "Fun Action",
         "icon": "/assets/img/buildnow.webp",
-        "url": "https://games.crazygames.com/en_US/buildnow-gg/index.html",
+        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/buildnowgg.zip",
         "disabled": false,
-        "local": false
+        "local": true
       },
       {
         "appName": "Counter Strike",
