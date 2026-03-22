@@ -8,6 +8,12 @@ import {
   designConfig,
 } from '/src/utils/config';
 
+// Language configuration
+export const languageConfig = [
+  { label: 'English', value: { language: 'en' } },
+  { label: 'Espanol', value: { language: 'es' } },
+];
+
 export const privacyConfig = ({ options, updateOption, openPanic }) => ({
   1: {
     name: 'Site Title',
@@ -71,47 +77,58 @@ export const privacyConfig = ({ options, updateOption, openPanic }) => ({
 
 export const customizeConfig = ({ options, updateOption }) => ({
   1: {
-    name: 'Site Theme',
-    desc: 'Customize the appearance of the website by selecting a theme.',
+    name: options.language === 'es' ? 'Idioma' : 'Language',
+    desc: options.language === 'es' ? 'Selecciona el idioma de la pagina.' : 'Select the site language.',
+    config: languageConfig,
+    value: find(languageConfig, (c) => c.value?.language === (options.language ?? 'en'), 0),
+    type: 'select',
+    action: (a) => {
+      updateOption(a);
+      location.reload();
+    },
+  },
+  2: {
+    name: options.language === 'es' ? 'Tema del Sitio' : 'Site Theme',
+    desc: options.language === 'es' ? 'Personaliza la apariencia del sitio seleccionando un tema.' : 'Customize the appearance of the website by selecting a theme.',
     config: themeConfig,
     value: find(themeConfig, (c) => c.value?.themeName === options.themeName, 0),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  2: {
-    name: 'Background Design',
-    desc: "Customize the site's background design.",
+  3: {
+    name: options.language === 'es' ? 'Diseno de Fondo' : 'Background Design',
+    desc: options.language === 'es' ? 'Personaliza el diseno de fondo del sitio.' : "Customize the site's background design.",
     config: designConfig,
     value: find(designConfig, (c) => c.value?.bgDesign === options.bgDesign, 0),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  3: {
-    name: 'Apps per Page',
-    desc: 'Number of apps to show per page ("All" will show everything).',
+  4: {
+    name: options.language === 'es' ? 'Apps por Pagina' : 'Apps per Page',
+    desc: options.language === 'es' ? 'Numero de apps a mostrar por pagina.' : 'Number of apps to show per page ("All" will show everything).',
     config: appsPerPageConfig,
     value: find(appsPerPageConfig, (c) => c.value.itemsPerPage === (options.itemsPerPage ?? 20), 2),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  4: {
-    name: 'Navigation Scale',
-    desc: 'Scale navigation bar size (logo & font) globally.',
+  5: {
+    name: options.language === 'es' ? 'Escala de Navegacion' : 'Navigation Scale',
+    desc: options.language === 'es' ? 'Escala del tamano de la barra de navegacion.' : 'Scale navigation bar size (logo & font) globally.',
     config: navScaleConfig,
     value: find(navScaleConfig, (c) => c.value.navScale === (options.navScale ?? 1), 3),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  5: {
-    name: 'Tabs Bar',
-    desc: 'Show the tabs bar, allowing you to open multiple sites when browsing.',
+  6: {
+    name: options.language === 'es' ? 'Barra de Pestanas' : 'Tabs Bar',
+    desc: options.language === 'es' ? 'Muestra la barra de pestanas al navegar.' : 'Show the tabs bar, allowing you to open multiple sites when browsing.',
     value: options.showTb ?? true,
     type: 'switch',
     action: (b) => setTimeout(() => updateOption({ showTb: b }), 100),
   },
-  6: {
-    name: 'Donation button',
-    desc: 'Toggle whether you want the "Support us" button to show.',
+  7: {
+    name: options.language === 'es' ? 'Boton de Donacion' : 'Donation button',
+    desc: options.language === 'es' ? 'Mostrar u ocultar el boton de apoyo.' : 'Toggle whether you want the "Support us" button to show.',
     value: options.donationBtn ?? true,
     type: 'switch',
     action: (b) => setTimeout(() => updateOption({ donationBtn: b }), 100),

@@ -303,6 +303,50 @@
         "url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/ultrakill/index.html",
         "disabled": false,
         "local": false
+      },
+      {
+        "appName": "Basket Random",
+        "desc": "All-Time favorites",
+        "icon": "/assets/img/basketrandom.webp",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/rnd-bk.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Soccer Random",
+        "desc": "All-Time favorites",
+        "icon": "https://img.gamedistribution.com/308d826f20034d7b972f25258c8d0a44-512x512.jpeg",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/random-soc.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Volley Random",
+        "desc": "All-Time favorites",
+        "icon": "/assets/img/volley-random.webp",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/random-vol.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Basketball FRVR",
+        "desc": "All-Time favorites",
+        "icon": "https://play-lh.googleusercontent.com/4avPP7yNU6hARlzIldyPajBnKYj3rGohlmfnRtR7JxSGXNbfBW9AblVhY3wAbo0sbYU7=w240-h480-rw",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@e155f118b64eee8b7ecd88f7f834eec269ddc76d/bk-frvr.zip",
+        "disabled": false,
+        "local": true
+      },
+      {
+        "appName": "Champion Island",
+        "desc": "All-Time favorites",
+        "icon": "/assets-fb/champion-island/splash.png",
+        "url": [
+          "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/champion-island.zip",
+          "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/champion-island_2.zip",
+          "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/champion-island_3.zip"
+        ],
+        "disabled": false,
+        "local": true
       }
     ],
     "Action": [
