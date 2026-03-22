@@ -6,12 +6,18 @@ import loaderStore from '/src/utils/hooks/loader/useLoaderStore';
 import { process } from '/src/utils/hooks/loader/utils';
 import { useOptions } from '../utils/optionsContext';
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function Loader({ config = {} }) {
-  const { url, ui = true, zoom, alerts = false } = config;
+  const location = useLocation();
+  const { ui = true, zoom, alerts = false } = config;
   const { options } = useOptions();
   const tabs = loaderStore((state) => state.tabs);
   const updateUrl = loaderStore((state) => state.updateUrl);
+  
+  // Get URL from navigation state OR from config
+  const url = location.state?.url || config.url;
+  
   const barStyle = {
     backgroundColor: options.barColor || '#09121e',
   };
@@ -25,7 +31,7 @@ export default function Loader({ config = {} }) {
         updateUrl(tab.id, processedUrl);
       }
     }
-  }, [url, tabs, updateUrl, options.prType]);
+  }, [url, tabs, updateUrl, options.prType, options.engine]);
 
   useEffect(() => {
     loaderStore.getState().clearStore({ showTb: options.showTb ?? true });

@@ -1,35 +1,48 @@
 // API endpoint for search results using DuckDuckGo
 export default async function handler(req, res) {
-  const { q } = req.query;
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const { q, type } = req.query;
   
   if (!q) {
     return res.status(400).json({ error: 'Query parameter q is required' });
   }
 
   try {
-    // Get search results from DuckDuckGo HTML (scraping approach)
+    // Web search
     const searchUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
     
     const response = await fetch(searchUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
       }
     });
 
     const html = await response.text();
-    
-    // Parse the results from HTML
     const results = [];
     
-    // Match result blocks - DuckDuckGo HTML version
-    const resultRegex = /<a class="result__a"[^>]*href="([^"]*)"[^>]*>([^<]*(?:<[^>]*>[^<]*)*)<\/a>[\s\S]*?<a class="result__snippet"[^>]*>([^<]*(?:<[^>]*>[^<]*)*)<\/a>/g;
+    // Split by result blocks for more reliable parsing
+    const resultBlocks = html.split(/<div[^>]*class="[^"]*result[^"]*links_main[^"]*"[^>]*>/g);
     
-    let match;
-    while ((match = resultRegex.exec(html)) !== null && results.length < 10) {
-      let url = match[1];
-      // DuckDuckGo uses redirect URLs, extract the actual URL
+    for (let i = 1; i < resultBlocks.length && results.length < 15; i++) {
+      const block = resultBlocks[i];
+      
+      // Extract link and title
+      const linkMatch = block.match(/<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/);
+      const snippetMatch = block.match(/<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/);
+      
+      if (!linkMatch) continue;
+      
+      let url = linkMatch[1];
+      // DuckDuckGo redirects - extract real URL
       if (url.includes('uddg=')) {
         const uddgMatch = url.match(/uddg=([^&]*)/);
         if (uddgMatch) {
@@ -37,16 +50,15 @@ export default async function handler(req, res) {
         }
       }
       
-      const title = match[2].replace(/<[^>]*>/g, '').trim();
-      const snippet = match[3].replace(/<[^>]*>/g, '').trim();
+      const title = linkMatch[2].replace(/<[^>]*>/g, '').trim();
+      const snippet = snippetMatch ? snippetMatch[1].replace(/<[^>]*>/g, '').trim() : '';
       
-      if (url && title) {
-        // Extract domain for favicon
-        let domain = '';
-        try {
-          domain = new URL(url).hostname;
-        } catch {}
-        
+      let domain = '';
+      try {
+        domain = new URL(url).hostname.replace(/^www\./, '');
+      } catch {}
+      
+      if (url && title && url.startsWith('http')) {
         results.push({
           title,
           url,
@@ -57,16 +69,15 @@ export default async function handler(req, res) {
       }
     }
 
-    // Alternative parsing if the above doesn't work
+    // Fallback parsing if the above doesn't work
     if (results.length === 0) {
-      // Try simpler pattern
       const simpleRegex = /<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g;
       const snippetRegex = /<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
       
       const links = [...html.matchAll(simpleRegex)];
       const snippets = [...html.matchAll(snippetRegex)];
       
-      for (let i = 0; i < Math.min(links.length, 10); i++) {
+      for (let i = 0; i < Math.min(links.length, 15); i++) {
         let url = links[i][1];
         if (url.includes('uddg=')) {
           const uddgMatch = url.match(/uddg=([^&]*)/);
@@ -80,10 +91,10 @@ export default async function handler(req, res) {
         
         let domain = '';
         try {
-          domain = new URL(url).hostname;
+          domain = new URL(url).hostname.replace(/^www\./, '');
         } catch {}
         
-        if (url && title && !url.startsWith('/')) {
+        if (url && title && url.startsWith('http')) {
           results.push({
             title,
             url,

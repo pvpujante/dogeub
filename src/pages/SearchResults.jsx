@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Search, ExternalLink, ArrowLeft, Loader2, Globe } from 'lucide-react';
+import { Search, ArrowLeft, Loader2, Globe, ImageIcon } from 'lucide-react';
 import { useOptions } from '../utils/optionsContext';
 import clsx from 'clsx';
 import theme from '../styles/theming.module.css';
@@ -10,10 +10,12 @@ export default function SearchResults() {
   const navigate = useNavigate();
   const { options } = useOptions();
   const [results, setResults] = useState([]);
+  const [imageResults, setImageResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [activeTab, setActiveTab] = useState('web'); // 'web' or 'images'
 
   const barStyle = {
     backgroundColor: options.barColor || '#09121e',
@@ -31,19 +33,18 @@ export default function SearchResults() {
     setInputValue(query);
 
     try {
-      // Check if it's a URL
+      // Check if it's a URL - navigate directly to browser
       const isUrl = /^https?:\/\//i.test(query.trim()) || 
                     /^[\w-]+\.[\w.-]+/i.test(query.trim());
       
       if (isUrl) {
-        // Open URL directly in new tab
         const url = query.startsWith('http') ? query : `https://${query}`;
-        window.open(url, '_blank', 'noopener,noreferrer');
-        setLoading(false);
+        // Navigate to the browser page with the URL
+        navigate('/browse', { state: { url } });
         return;
       }
 
-      // Perform search
+      // Perform web search
       const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
       
       if (!response.ok) {
@@ -52,6 +53,17 @@ export default function SearchResults() {
       
       const data = await response.json();
       setResults(data.results || []);
+      
+      // Also fetch image results
+      try {
+        const imageResponse = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=images`);
+        if (imageResponse.ok) {
+          const imageData = await imageResponse.json();
+          setImageResults(imageData.images || []);
+        }
+      } catch (imgErr) {
+        console.log('Image search not available');
+      }
     } catch (err) {
       console.error('Search error:', err);
       setError('No se pudieron obtener los resultados. Intenta de nuevo.');
@@ -59,7 +71,7 @@ export default function SearchResults() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (initialQuery) {
@@ -77,8 +89,8 @@ export default function SearchResults() {
   };
 
   const handleResultClick = (url) => {
-    // Open in new tab since we can't proxy without backend
-    window.open(url, '_blank', 'noopener,noreferrer');
+    // Navigate to the browser page which will load the URL through the proxy
+    navigate('/browse', { state: { url } });
   };
 
   const handleKeyDown = (e) => {
@@ -130,6 +142,36 @@ export default function SearchResults() {
             </div>
           </div>
         </div>
+        
+        {/* Tabs for Web/Images */}
+        {!loading && results.length > 0 && (
+          <div className="max-w-4xl mx-auto mt-3 flex gap-2">
+            <button
+              onClick={() => setActiveTab('web')}
+              className={clsx(
+                'px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2',
+                activeTab === 'web' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-white/10 hover:bg-white/20'
+              )}
+            >
+              <Globe size={16} />
+              Web
+            </button>
+            <button
+              onClick={() => setActiveTab('images')}
+              className={clsx(
+                'px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2',
+                activeTab === 'images' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-white/10 hover:bg-white/20'
+              )}
+            >
+              <ImageIcon size={16} />
+              Imagenes
+            </button>
+          </div>
+        )}
       </header>
 
       {/* Results area */}
@@ -163,8 +205,9 @@ export default function SearchResults() {
           </div>
         )}
 
-        {!loading && !error && results.length > 0 && (
-          <div className="space-y-6">
+        {/* Web Results */}
+        {!loading && !error && results.length > 0 && activeTab === 'web' && (
+          <div className="space-y-4">
             <p className="text-sm text-gray-400 mb-6">
               Mostrando {results.length} resultados para "{searchQuery}"
             </p>
@@ -172,7 +215,7 @@ export default function SearchResults() {
             {results.map((result, index) => (
               <article
                 key={index}
-                className="group cursor-pointer p-4 rounded-xl hover:bg-white/5 transition-all duration-200"
+                className="group cursor-pointer p-4 rounded-xl hover:bg-white/5 transition-all duration-200 border border-transparent hover:border-white/10"
                 onClick={() => handleResultClick(result.url)}
               >
                 <div className="flex items-start gap-4">
@@ -203,7 +246,6 @@ export default function SearchResults() {
                       <span className="text-sm text-gray-400 truncate">
                         {result.domain}
                       </span>
-                      <ExternalLink size={12} className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     
                     {/* Title */}
@@ -224,6 +266,42 @@ export default function SearchResults() {
           </div>
         )}
 
+        {/* Image Results */}
+        {!loading && !error && activeTab === 'images' && (
+          <div>
+            {imageResults.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {imageResults.map((img, index) => (
+                  <div
+                    key={index}
+                    className="aspect-square rounded-lg overflow-hidden bg-white/5 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => handleResultClick(img.source || img.url)}
+                  >
+                    <img
+                      src={img.thumbnail || img.url}
+                      alt={img.title || 'Imagen'}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <ImageIcon size={48} className="mx-auto mb-4 text-gray-500" />
+                <p className="text-gray-400">
+                  No hay imagenes disponibles para esta busqueda
+                </p>
+                <p className="text-gray-500 text-sm mt-2">
+                  Intenta buscar en la pestana Web
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
         {!loading && !searchQuery && (
           <div className="text-center py-20">
             <Search size={64} className="mx-auto mb-6 text-gray-600" />
@@ -237,7 +315,7 @@ export default function SearchResults() {
 
       {/* Footer info */}
       <footer className="py-4 text-center text-sm text-gray-500">
-        <p>Los resultados se abren en una nueva pestana</p>
+        <p>Las paginas se abren dentro de la aplicacion</p>
       </footer>
     </div>
   );

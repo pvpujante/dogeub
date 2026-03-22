@@ -38,11 +38,27 @@ const SearchContainer = memo(function SearchContainer({ logo = true, cls, nav = 
 
   const go = (strin) => {
     if (nav) {
-      navigate("/search", {
-        state: {
-          url: strin,
-        }
-      });
+      // Check if it's a URL - go directly to browser
+      const trimmed = strin.trim();
+      const isUrl = /^https?:\/\//i.test(trimmed) || 
+                    /^[\w-]+\.[\w.-]+/i.test(trimmed) ||
+                    trimmed.startsWith('localhost');
+      
+      if (isUrl) {
+        // Direct URL - go to browser
+        navigate("/browse", {
+          state: {
+            url: trimmed,
+          }
+        });
+      } else {
+        // Search query - go to search results
+        navigate("/search", {
+          state: {
+            url: trimmed,
+          }
+        });
+      }
     } else {
       const processedUrl = navigating.process(strin);
       if (processedUrl) {

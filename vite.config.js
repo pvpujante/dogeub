@@ -269,7 +269,10 @@ export default defineConfig(({ command }) => {
           
           // Full search results API
           s.middlewares.use('/api/search', async (req, res) => {
-            const q = new URL(req.url, 'http://x').searchParams.get('q');
+            const urlParams = new URL(req.url, 'http://x').searchParams;
+            const q = urlParams.get('q');
+            const type = urlParams.get('type'); // 'web' or 'images'
+            
             if (!q) {
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify({ error: 'query parameter required' }));
@@ -277,11 +280,22 @@ export default defineConfig(({ command }) => {
             }
             
             try {
+              // Image search
+              if (type === 'images') {
+                const imageSearchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&iax=images&ia=images`;
+                // DuckDuckGo images require JavaScript, so we'll use a different approach
+                // Return empty for now - images work better with the proxy
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ images: [], query: q }));
+                return;
+              }
+              
+              // Web search
               const searchUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
               const response = await fetch(searchUrl, {
                 headers: {
-                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                  'Accept': 'text/html',
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
                   'Accept-Language': 'en-US,en;q=0.5',
                 }
               });
@@ -289,15 +303,20 @@ export default defineConfig(({ command }) => {
               const html = await response.text();
               const results = [];
               
-              // Parse DuckDuckGo HTML results
-              const resultRegex = /<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g;
-              const snippetRegex = /<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
+              // Parse DuckDuckGo HTML results - improved regex
+              const resultBlocks = html.split(/<div[^>]*class="[^"]*result[^"]*links_main[^"]*"[^>]*>/g);
               
-              const links = [...html.matchAll(resultRegex)];
-              const snippets = [...html.matchAll(snippetRegex)];
-              
-              for (let i = 0; i < Math.min(links.length, 10); i++) {
-                let url = links[i][1];
+              for (let i = 1; i < resultBlocks.length && results.length < 15; i++) {
+                const block = resultBlocks[i];
+                
+                // Extract link and title
+                const linkMatch = block.match(/<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/);
+                const snippetMatch = block.match(/<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/);
+                
+                if (!linkMatch) continue;
+                
+                let url = linkMatch[1];
+                // DuckDuckGo redirects - extract real URL
                 if (url.includes('uddg=')) {
                   const uddgMatch = url.match(/uddg=([^&]*)/);
                   if (uddgMatch) {
@@ -305,15 +324,15 @@ export default defineConfig(({ command }) => {
                   }
                 }
                 
-                const title = links[i][2].replace(/<[^>]*>/g, '').trim();
-                const snippet = snippets[i] ? snippets[i][1].replace(/<[^>]*>/g, '').trim() : '';
+                const title = linkMatch[2].replace(/<[^>]*>/g, '').trim();
+                const snippet = snippetMatch ? snippetMatch[1].replace(/<[^>]*>/g, '').trim() : '';
                 
                 let domain = '';
                 try {
-                  domain = new URL(url).hostname;
+                  domain = new URL(url).hostname.replace(/^www\./, '');
                 } catch {}
                 
-                if (url && title && !url.startsWith('/') && url.startsWith('http')) {
+                if (url && title && url.startsWith('http')) {
                   results.push({
                     title,
                     url,
@@ -325,6 +344,7 @@ export default defineConfig(({ command }) => {
               }
               
               res.setHeader('Content-Type', 'application/json');
+              res.setHeader('Access-Control-Allow-Origin', '*');
               res.end(JSON.stringify({ results, query: q }));
             } catch (err) {
               res.setHeader('Content-Type', 'application/json');
