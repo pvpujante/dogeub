@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useRef, useEffect, useCallback, memo, lazy, Suspense } from 'react';
-import { Search, ChevronDown, LayoutGrid } from 'lucide-react';
+import { Search, ChevronDown, LayoutGrid, HardDrive, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -17,6 +17,7 @@ const SORT_OPTIONS = [
 
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
+  const isLocal = app.local === true;
   
   return (
     <div
@@ -45,6 +46,19 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
             onError={() => onImgError(app.appName)}
           />
         )}
+        <div 
+          className={clsx(
+            "absolute bottom-1 right-1 p-1 rounded-md",
+            isLocal ? "bg-green-600/80" : "bg-blue-600/80"
+          )}
+          title={isLocal ? "Local (descargado)" : "Web (online)"}
+        >
+          {isLocal ? (
+            <HardDrive className="w-3 h-3 text-white" />
+          ) : (
+            <Globe className="w-3 h-3 text-white" />
+          )}
+        </div>
       </div>
       <p className="text-m font-semibold">{app.appName.split('').join('\u200B')}</p>
       <p className="text-sm mt-2">{(app.desc || '').split('').join('\u200B')}</p>

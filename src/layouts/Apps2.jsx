@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useEffect, useCallback, memo, useRef, lazy, Suspense } from 'react';
-import { Search, LayoutGrid, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { Search, LayoutGrid, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -11,6 +11,7 @@ const Pagination = lazy(() => import('@mui/material/Pagination'));
 
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
+  const isLocal = app.local === true;
   
   return (
     <div
@@ -40,6 +41,19 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
             onError={() => onImgError(app.appName)}
           />
         )}
+        <div 
+          className={clsx(
+            "absolute bottom-1 right-1 p-1 rounded-md",
+            isLocal ? "bg-green-600/80" : "bg-blue-600/80"
+          )}
+          title={isLocal ? "Local (descargado)" : "Web (online)"}
+        >
+          {isLocal ? (
+            <HardDrive className="w-3 h-3 text-white" />
+          ) : (
+            <Globe className="w-3 h-3 text-white" />
+          )}
+        </div>
       </div>
       <p className="text-m font-semibold mb-3 flex-grow line-clamp-2">{app.appName.split('').join('\u200B')}</p>
       <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffffff15] hover:bg-[#ffffff25] transition-colors text-sm font-medium mt-auto self-start">
