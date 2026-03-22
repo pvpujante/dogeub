@@ -336,20 +336,26 @@ const Games = memo(() => {
         </div>
       )}
 
-      {q || category || showDl ? (
+      {q || category || showDl || filter !== 'all' ? (
         <>
           <div className="flex flex-wrap justify-center pb-2">
-            {filtered.paged.map((game) => (
-              <AppCard
-                key={game.appName}
-                app={game}
-                onClick={navApp}
-                fallbackMap={fallback}
-                onImgError={handleImgError}
-                itemTheme={{ ...theme, current: options.theme || 'default' }}
-                itemStyles={styles}
-              />
-            ))}
+            {filtered.paged.length === 0 ? (
+              <div className="text-center py-10 opacity-60">
+                No se encontraron juegos con este filtro
+              </div>
+            ) : (
+              filtered.paged.map((game) => (
+                <AppCard
+                  key={game.appName}
+                  app={game}
+                  onClick={navApp}
+                  fallbackMap={fallback}
+                  onImgError={handleImgError}
+                  itemTheme={{ ...theme, current: options.theme || 'default' }}
+                  itemStyles={styles}
+                />
+              ))
+            )}
           </div>
 
           {filtered.filteredGames.length > perPage && (
