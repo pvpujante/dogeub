@@ -142,6 +142,7 @@ const Games = memo(() => {
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState(null);
+  const [filter, setFilter] = useState('all'); // 'all', 'local', 'web'
   const [fallback, setFallback] = useState({});
   const [dlCount, setDlCount] = useState(0);
   const [showDl, setShowDl] = useState(false);
@@ -181,6 +182,13 @@ const Games = memo(() => {
       toFilter = data[category] || [];
     }
     
+    // Apply local/web filter
+    if (filter === 'local') {
+      toFilter = toFilter.filter((game) => game.local === true);
+    } else if (filter === 'web') {
+      toFilter = toFilter.filter((game) => game.local !== true);
+    }
+    
     if (q) {
       const fq = q.toLowerCase().trim().replace(/\s/g, '');
       toFilter = toFilter.filter((game) => {
@@ -192,7 +200,7 @@ const Games = memo(() => {
     const total = Math.ceil(toFilter.length / perPage);
     const paged = toFilter.slice((page - 1) * perPage, page * perPage);
     return { filteredGames: toFilter, paged, totalPages: total };
-  }, [all, data, category, showDl, dlGames, q, page, perPage]);
+  }, [all, data, category, filter, showDl, dlGames, q, page, perPage]);
 
   useEffect(() => {
     if (page > filtered.totalPages && filtered.totalPages > 0) setPage(1);
@@ -221,6 +229,7 @@ const Games = memo(() => {
   const handleBack = useCallback(() => {
     setCategory(null);
     setShowDl(false);
+    setFilter('all');
     setQ('');
     setPage(1);
   }, []);
@@ -246,11 +255,11 @@ const Games = memo(() => {
 
   return (
     <div className={`${styles.appContainer} w-full mx-auto`}>
-      <div className="w-full px-4 py-4 flex justify-center mt-3 relative">
+      <div className="w-full px-4 py-4 flex flex-col items-center gap-3 mt-3 relative">
         {(category || showDl) && (
           <button
             onClick={handleBack}
-            className="absolute cursor-pointer left-10 text-sm hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="absolute cursor-pointer left-10 top-5 text-sm hover:opacity-80 transition-opacity whitespace-nowrap"
           >
             ← Back to all
           </button>
@@ -269,6 +278,44 @@ const Games = memo(() => {
             onChange={handleSearch}
             className="flex-1 bg-transparent outline-none text-sm"
           />
+        </div>
+        
+        <div className="flex gap-2">
+          <button
+            onClick={() => { setFilter('all'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors',
+              filter === 'all' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            Todos
+          </button>
+          <button
+            onClick={() => { setFilter('local'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5',
+              filter === 'local' 
+                ? 'bg-green-600 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            <HardDrive className="w-3.5 h-3.5" />
+            Local
+          </button>
+          <button
+            onClick={() => { setFilter('web'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5',
+              filter === 'web' 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            <Globe className="w-3.5 h-3.5" />
+            Web
+          </button>
         </div>
       </div>
 
