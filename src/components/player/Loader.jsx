@@ -1,5 +1,4 @@
 import { useRef, useState, useCallback } from 'react';
-import Search from '/src/pages/Search';
 import {
   Maximize2,
   SquareArrowOutUpRight,
@@ -80,17 +79,17 @@ const Loader = ({ theme, app }) => {
         <div className="w-full flex-grow flex items-center justify-center">
           {downloading ? 'Downloading...' : 'Loading...'}
         </div>
-      ) : isLocal ? (
+      ) : (
         <iframe
-          key={gmUrl}
-          src={gmUrl}
+          key={isLocal ? gmUrl : app?.url}
+          src={isLocal ? gmUrl : app?.url}
           ref={gmRef}
           onContextMenu={(e) => e.preventDefault()}
           className="w-full flex-grow"
+          style={{ zoom: zoom }}
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-pointer-lock"
+          allow="fullscreen; autoplay"
         />
-      ) : (
-        <Search config={{ url: app?.url, ui: false, zoom: zoom, alerts: false }} />
       )}
 
       <div className="p-2.5 flex gap-2 border-t">
