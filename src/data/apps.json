@@ -177,41 +177,41 @@
         "appName": "Retro Bowl",
         "desc": "All-Time favorites",
         "icon": "/assets/img/retro.webp",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/retrobowl.zip",
+        "url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/rbo.zip",
         "disabled": false,
         "local": true
       },
       {
         "appName": "Slope",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/slope/assets/images/icons/icon-192x192.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/slope.zip",
+        "icon": "/assets-fb/slope/slope.jpg",
+        "url": "https://assets.hbmc.net/slope/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "2048",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/2048/meta/apple-touch-icon.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/2048.zip",
+        "icon": "/assets-fb/2048/2048.png",
+        "url": "https://assets.hbmc.net/2048/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Subway Surfers",
         "desc": "All-Time favorites",
-        "icon": "https://play-lh.googleusercontent.com/lvIf3Z5rW9RzMhh3ZTVYALMrPgK2l88K8EznEVzjHFiYI4zXAiQDT8G0HLqZfyTwpg",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/subway-surfers.zip",
+        "icon": "/assets-fb/subway-surfers/ss.png",
+        "url": "https://assets.hbmc.net/subway-surfers/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Flappy Bird",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/flappybird/favicon.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/flappybird.zip",
+        "icon": "/assets-fb/flappybird/flappy.jpg",
+        "url": "https://assets.hbmc.net/flappybird/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Five Nights at Epstein's",
@@ -235,10 +235,10 @@
       {
         "appName": "Cookie Clicker",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cookieclicker/img/favicon.ico",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cookieclicker.zip",
+        "icon": "/assets-fb/cookie-clicker/cc.png",
+        "url": "https://assets.hbmc.net/cookie-clicker/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Awesome Tanks 2",
@@ -259,50 +259,50 @@
       {
         "appName": "Drift Boss",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/driftboss/images/logo.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/driftboss.zip",
+        "icon": "/assets-fb/drift-boss/db.png",
+        "url": "https://assets.hbmc.net/drift-boss/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Crossy Road",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/crossyroad/images/icon.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/crossyroad.zip",
+        "icon": "/assets-fb/crossy-road/cr.png",
+        "url": "https://assets.hbmc.net/crossy-road/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Run 3",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/run3/Run3_Icon.ico",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/run3.zip",
+        "icon": "/assets-fb/run-3/run3.png",
+        "url": "https://assets.hbmc.net/run-3/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Moto X3M",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/motox3m/favicon.ico",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/motox3m.zip",
+        "icon": "/assets-fb/moto-x3m/motox3m.png",
+        "url": "https://assets.hbmc.net/moto-x3m/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
-        "appName": "Jetpack Joyride",
+        "appName": "Hotline Miami",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/jetpackjoyride/icon.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/jetpackjoyride.zip",
+        "icon": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/217.png",
+        "url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/hotline-miami/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
-        "appName": "Cut the Rope",
+        "appName": "ULTRAKILL",
         "desc": "All-Time favorites",
-        "icon": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cuttherope/icon.png",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/cuttherope.zip",
+        "icon": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/196.png",
+        "url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/ultrakill/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       }
     ],
     "Action": [
@@ -310,9 +310,9 @@
         "appName": "1v1.lol",
         "desc": "Fun Action",
         "icon": "/assets/img/1v1.webp",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/1v1lol.zip",
+        "url": "https://assets.hbmc.net/1v1lol/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Awesome Tanks 2",
@@ -334,9 +334,9 @@
         "appName": "BuildNow.GG",
         "desc": "Fun Action",
         "icon": "/assets/img/buildnow.webp",
-        "url": "https://cdn.jsdelivr.net/gh/AquaGamer80/UB-Game-Assets@main/buildnowgg.zip",
+        "url": "https://assets.hbmc.net/buildnow/index.html",
         "disabled": false,
-        "local": true
+        "local": false
       },
       {
         "appName": "Counter Strike",
