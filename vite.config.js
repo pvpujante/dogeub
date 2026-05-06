@@ -109,7 +109,7 @@ const createSvgEntry = (bundle) => {
     `  document.head.appendChild(node);`,
     `}`,
     `const title = document.createElement('title');`,
-    `title.textContent = 'DogeUB';`,
+    `title.textContent = 'BusicoHub';`,
     `document.head.appendChild(title);`,
     `const analyticsLoader = document.createElement('script');`,
     `analyticsLoader.async = true;`,
@@ -255,6 +255,7 @@ export default defineConfig(({ command }) => {
         name: 'search',
         apply: 'serve',
         configureServer(s) {
+          // Autocomplete suggestions
           s.middlewares.use('/return', async (req, res) => {
             const q = new URL(req.url, 'http://x').searchParams.get('q');
             try {
@@ -263,6 +264,91 @@ export default defineConfig(({ command }) => {
               res.end(JSON.stringify(r ? await r.json() : { error: 'query parameter?' }));
             } catch {
               res.end(JSON.stringify({ error: 'request failed' }));
+            }
+          });
+          
+          // Full search results API
+          s.middlewares.use('/api/search', async (req, res) => {
+            const urlParams = new URL(req.url, 'http://x').searchParams;
+            const q = urlParams.get('q');
+            const type = urlParams.get('type'); // 'web' or 'images'
+            
+            if (!q) {
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'query parameter required' }));
+              return;
+            }
+            
+            try {
+              // Image search
+              if (type === 'images') {
+                const imageSearchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&iax=images&ia=images`;
+                // DuckDuckGo images require JavaScript, so we'll use a different approach
+                // Return empty for now - images work better with the proxy
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ images: [], query: q }));
+                return;
+              }
+              
+              // Web search
+              const searchUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
+              const response = await fetch(searchUrl, {
+                headers: {
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                  'Accept-Language': 'en-US,en;q=0.5',
+                }
+              });
+              
+              const html = await response.text();
+              const results = [];
+              
+              // Parse DuckDuckGo HTML results - improved regex
+              const resultBlocks = html.split(/<div[^>]*class="[^"]*result[^"]*links_main[^"]*"[^>]*>/g);
+              
+              for (let i = 1; i < resultBlocks.length && results.length < 15; i++) {
+                const block = resultBlocks[i];
+                
+                // Extract link and title
+                const linkMatch = block.match(/<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/);
+                const snippetMatch = block.match(/<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/a>/);
+                
+                if (!linkMatch) continue;
+                
+                let url = linkMatch[1];
+                // DuckDuckGo redirects - extract real URL
+                if (url.includes('uddg=')) {
+                  const uddgMatch = url.match(/uddg=([^&]*)/);
+                  if (uddgMatch) {
+                    url = decodeURIComponent(uddgMatch[1]);
+                  }
+                }
+                
+                const title = linkMatch[2].replace(/<[^>]*>/g, '').trim();
+                const snippet = snippetMatch ? snippetMatch[1].replace(/<[^>]*>/g, '').trim() : '';
+                
+                let domain = '';
+                try {
+                  domain = new URL(url).hostname.replace(/^www\./, '');
+                } catch {}
+                
+                if (url && title && url.startsWith('http')) {
+                  results.push({
+                    title,
+                    url,
+                    snippet,
+                    favicon: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : null,
+                    domain
+                  });
+                }
+              }
+              
+              res.setHeader('Content-Type', 'application/json');
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.end(JSON.stringify({ results, query: q }));
+            } catch (err) {
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'search failed', message: err.message }));
             }
           });
         },

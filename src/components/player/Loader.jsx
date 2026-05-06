@@ -1,5 +1,4 @@
 import { useRef, useState, useCallback } from 'react';
-import Search from '/src/pages/Search';
 import {
   Maximize2,
   SquareArrowOutUpRight,
@@ -7,7 +6,6 @@ import {
   ZoomOut,
   Cloud,
   HardDrive,
-  Bug,
 } from 'lucide-react';
 import { useLocalGmLoader } from '/src/utils/hooks/player/useLocalGmLoader';
 import { useNavigate } from 'react-router-dom';
@@ -81,17 +79,17 @@ const Loader = ({ theme, app }) => {
         <div className="w-full flex-grow flex items-center justify-center">
           {downloading ? 'Downloading...' : 'Loading...'}
         </div>
-      ) : isLocal ? (
+      ) : (
         <iframe
-          key={gmUrl}
-          src={gmUrl}
+          key={isLocal ? gmUrl : app?.url}
+          src={isLocal ? gmUrl : app?.url}
           ref={gmRef}
           onContextMenu={(e) => e.preventDefault()}
           className="w-full flex-grow"
+          style={{ zoom: zoom }}
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-pointer-lock"
+          allow="fullscreen; autoplay"
         />
-      ) : (
-        <Search config={{ url: app?.url, ui: false, zoom: zoom, alerts: false }} />
       )}
 
       <div className="p-2.5 flex gap-2 border-t">
@@ -109,15 +107,7 @@ const Loader = ({ theme, app }) => {
           <Control icon={SquareArrowOutUpRight} fn={external} />
         )}
 
-        <Control
-          icon={Bug}
-          fn={() =>
-            window.open('https://forms.gle/JnvtauV7vX5trxAy8', '_blank', 'noopener noreferrer')
-          }
-          className="ml-auto"
-        >
-          Report Issue
-        </Control>
+        <div className="ml-auto" />
         <Control icon={ZoomIn} fn={() => handleZoom('in')} />
         <Control icon={ZoomOut} fn={() => handleZoom('out')} />
         <Control icon={Maximize2} fn={fs} />

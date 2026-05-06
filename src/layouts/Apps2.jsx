@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useEffect, useCallback, memo, useRef, lazy, Suspense } from 'react';
-import { Search, LayoutGrid, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { Search, LayoutGrid, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -11,6 +11,7 @@ const Pagination = lazy(() => import('@mui/material/Pagination'));
 
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
+  const isLocal = app.local === true;
   
   return (
     <div
@@ -40,6 +41,19 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
             onError={() => onImgError(app.appName)}
           />
         )}
+        <div 
+          className={clsx(
+            "absolute bottom-1 right-1 p-1 rounded-md",
+            isLocal ? "bg-green-600/80" : "bg-blue-600/80"
+          )}
+          title={isLocal ? "Local (descargado)" : "Web (online)"}
+        >
+          {isLocal ? (
+            <HardDrive className="w-3 h-3 text-white" />
+          ) : (
+            <Globe className="w-3 h-3 text-white" />
+          )}
+        </div>
       </div>
       <p className="text-m font-semibold mb-3 flex-grow line-clamp-2">{app.appName.split('').join('\u200B')}</p>
       <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffffff15] hover:bg-[#ffffff25] transition-colors text-sm font-medium mt-auto self-start">
@@ -128,6 +142,7 @@ const Games = memo(() => {
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState(null);
+  const [filter, setFilter] = useState('all'); // 'all', 'local', 'web'
   const [fallback, setFallback] = useState({});
   const [dlCount, setDlCount] = useState(0);
   const [showDl, setShowDl] = useState(false);
@@ -167,6 +182,13 @@ const Games = memo(() => {
       toFilter = data[category] || [];
     }
     
+    // Apply local/web filter
+    if (filter === 'local') {
+      toFilter = toFilter.filter((game) => game.local === true);
+    } else if (filter === 'web') {
+      toFilter = toFilter.filter((game) => game.local !== true);
+    }
+    
     if (q) {
       const fq = q.toLowerCase().trim().replace(/\s/g, '');
       toFilter = toFilter.filter((game) => {
@@ -178,7 +200,7 @@ const Games = memo(() => {
     const total = Math.ceil(toFilter.length / perPage);
     const paged = toFilter.slice((page - 1) * perPage, page * perPage);
     return { filteredGames: toFilter, paged, totalPages: total };
-  }, [all, data, category, showDl, dlGames, q, page, perPage]);
+  }, [all, data, category, filter, showDl, dlGames, q, page, perPage]);
 
   useEffect(() => {
     if (page > filtered.totalPages && filtered.totalPages > 0) setPage(1);
@@ -207,6 +229,7 @@ const Games = memo(() => {
   const handleBack = useCallback(() => {
     setCategory(null);
     setShowDl(false);
+    setFilter('all');
     setQ('');
     setPage(1);
   }, []);
@@ -232,11 +255,11 @@ const Games = memo(() => {
 
   return (
     <div className={`${styles.appContainer} w-full mx-auto`}>
-      <div className="w-full px-4 py-4 flex justify-center mt-3 relative">
+      <div className="w-full px-4 py-4 flex flex-col items-center gap-3 mt-3 relative">
         {(category || showDl) && (
           <button
             onClick={handleBack}
-            className="absolute cursor-pointer left-10 text-sm hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="absolute cursor-pointer left-10 top-5 text-sm hover:opacity-80 transition-opacity whitespace-nowrap"
           >
             ← Back to all
           </button>
@@ -255,6 +278,44 @@ const Games = memo(() => {
             onChange={handleSearch}
             className="flex-1 bg-transparent outline-none text-sm"
           />
+        </div>
+        
+        <div className="flex gap-2">
+          <button
+            onClick={() => { setFilter('all'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors',
+              filter === 'all' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            Todos
+          </button>
+          <button
+            onClick={() => { setFilter('local'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5',
+              filter === 'local' 
+                ? 'bg-green-600 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            <HardDrive className="w-3.5 h-3.5" />
+            Local
+          </button>
+          <button
+            onClick={() => { setFilter('web'); setPage(1); }}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5',
+              filter === 'web' 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-[#ffffff15] hover:bg-[#ffffff25]'
+            )}
+          >
+            <Globe className="w-3.5 h-3.5" />
+            Web
+          </button>
         </div>
       </div>
 
@@ -275,20 +336,26 @@ const Games = memo(() => {
         </div>
       )}
 
-      {q || category || showDl ? (
+      {q || category || showDl || filter !== 'all' ? (
         <>
           <div className="flex flex-wrap justify-center pb-2">
-            {filtered.paged.map((game) => (
-              <AppCard
-                key={game.appName}
-                app={game}
-                onClick={navApp}
-                fallbackMap={fallback}
-                onImgError={handleImgError}
-                itemTheme={{ ...theme, current: options.theme || 'default' }}
-                itemStyles={styles}
-              />
-            ))}
+            {filtered.paged.length === 0 ? (
+              <div className="text-center py-10 opacity-60">
+                No se encontraron juegos con este filtro
+              </div>
+            ) : (
+              filtered.paged.map((game) => (
+                <AppCard
+                  key={game.appName}
+                  app={game}
+                  onClick={navApp}
+                  fallbackMap={fallback}
+                  onImgError={handleImgError}
+                  itemTheme={{ ...theme, current: options.theme || 'default' }}
+                  itemStyles={styles}
+                />
+              ))
+            )}
           </div>
 
           {filtered.filteredGames.length > perPage && (
