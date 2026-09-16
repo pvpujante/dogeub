@@ -9,13 +9,13 @@ import RenderSetting from '../components/Settings';
 let asyncConfs = [];
 const baseConfigs = [
   {
-    name: 'Privacy',
+    name: 'Privacidad',
     icon: HatGlasses,
     keywords: ['title', 'cloak', 'cloaking', 'tab cloak', 'about', 'about:blank', 'blank'],
     key: 'privacyConfig',
   },
   {
-    name: 'Customize',
+    name: 'Personalización',
     icon: Palette,
     keywords: [
       'theme',
@@ -36,17 +36,22 @@ const baseConfigs = [
       'donation',
       'tabs bar',
       'tab bar',
+      'layout',
+      'classroom',
+      'documents',
+      'drive',
+      'focus',
     ],
     key: 'customizeConfig',
   },
   {
-    name: 'Browsing',
+    name: 'Navegación',
     icon: Globe,
     keywords: ['tabs', 'tab', 'type', 'search engine',],
     key: 'browsingConfig',
   },
   {
-    name: 'Advanced',
+    name: 'Avanzado',
     icon: Wrench,
     keywords: [
       'wisp',
@@ -146,7 +151,7 @@ const Settings = () => {
             <Search className="w-4 mr-1.5" />
             <input
               type="text"
-              placeholder="Filter settings"
+              placeholder="Buscar ajustes"
               className="bg-transparent outline-hidden w-full text-sm"
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -155,12 +160,12 @@ const Settings = () => {
 
           {showKeywordTip && (
             <div className="mt-2 text-xs text-gray-400 text-center px-2">
-              May contain what you're looking for
+              Puede contener lo que estás buscando
             </div>
           )}
           {fq && matchCount > 1 && (
             <div className="mt-2 text-xs text-gray-400 text-center px-2">
-              Found {matchCount} matching settings
+              Se encontraron {matchCount} ajustes
             </div>
           )}
 
@@ -200,7 +205,7 @@ const Settings = () => {
         {loaded ? (
           <RenderSetting setting={content} />
         ) : (
-          <div className="flex-1 flex items-center justify-center text-sm">Loading...</div>
+          <div className="flex-1 flex items-center justify-center text-sm">Cargando...</div>
         )}
       </div>
     </div>

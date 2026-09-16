@@ -52,7 +52,7 @@ const Nav = memo(() => {
         nav.nav,
         theme['nav-backgroundColor'],
         theme[`theme-${options.theme || 'default'}`],
-        ' w-full shadow-x1/20 flex items-center pl-6 pr-5 gap-5 z-50',
+        'layout-nav w-full shadow-x1/20 flex items-center pl-6 pr-5 gap-5 z-50',
       )}
       style={{ height: `${dimensions.navHeight}px` }}
     >

@@ -40,6 +40,10 @@ const ThemedApp = memo(() => {
   useReg();
   useTracking();
 
+  useEffect(() => {
+    document.documentElement.dataset.layout = options.layoutMode || 'classic';
+  }, [options.layoutMode]);
+
   const pages = useMemo(
     () => [
       { path: '/', element: <Home /> },
