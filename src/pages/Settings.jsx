@@ -71,7 +71,7 @@ const baseConfigs = [
 const Settings = () => {
   const { options, updateOption } = useOptions();
   const [q, setQ] = useState('');
-  const [content, setContent] = useState('Privacy');
+  const [content, setContent] = useState(baseConfigs[0].name);
 
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {

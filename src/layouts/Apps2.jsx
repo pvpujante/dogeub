@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useEffect, useCallback, memo, useRef, lazy, Suspense } from 'react';
-import { Search, LayoutGrid, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -12,6 +12,7 @@ const Pagination = lazy(() => import('@mui/material/Pagination'));
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
   const isLocal = app.local === true;
+  const fallbackIcon = '/logo.svg';
   
   return (
     <div
@@ -29,18 +30,15 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
         {!loaded && !fallbackMap[app.appName] && (
           <div className="absolute inset-0 bg-gray-700 animate-pulse" />
         )}
-        {fallbackMap[app.appName] ? (
-          <LayoutGrid className="w-full h-full" />
-        ) : (
-          <img
-            src={app.icon}
-            draggable="false"
-            loading="lazy"
-            className="w-full h-full object-cover"
-            onLoad={() => setLoaded(true)}
-            onError={() => onImgError(app.appName)}
-          />
-        )}
+        <img
+          src={fallbackMap[app.appName] || app.icon}
+          draggable="false"
+          loading="lazy"
+          alt={`${app.appName} icon`}
+          className="w-full h-full object-cover"
+          onLoad={() => setLoaded(true)}
+          onError={() => onImgError(app.appName)}
+        />
         <div 
           className={clsx(
             "absolute bottom-1 right-1 p-1 rounded-md",
@@ -242,7 +240,7 @@ const Games = memo(() => {
   }, []);
 
   const handleImgError = useCallback(
-    (name) => setFallback((prev) => ({ ...prev, [name]: true })),
+    (name) => setFallback((prev) => ({ ...prev, [name]: '/logo.svg' })),
     [],
   );
 
