@@ -10,22 +10,22 @@ import {
 
 // Language configuration
 export const languageConfig = [
-  { option: 'English', value: { language: 'en' } },
-  { option: 'Espanol', value: { language: 'es' } },
+ { option: 'Español', value: { language: 'es' } },
+ { option: 'English', value: { language: 'en' } },
 ];
 
 export const layoutConfig = [
-  { option: 'Classic / Clasico', value: { layoutMode: 'classic' } },
-  { option: 'Classroom / Classroom', value: { layoutMode: 'classroom' } },
-  { option: 'Docs / Documentos', value: { layoutMode: 'docs' } },
-  { option: 'Drive / Unidad', value: { layoutMode: 'drive' } },
-  { option: 'Focus / Enfoque', value: { layoutMode: 'focus' } },
+  { option: 'Clásico', value: { layoutMode: 'classic' } },
+  { option: 'Aula', value: { layoutMode: 'classroom' } },
+  { option: 'Documentos', value: { layoutMode: 'docs' } },
+  { option: 'Unidad', value: { layoutMode: 'drive' } },
+  { option: 'Enfoque', value: { layoutMode: 'focus' } },
 ];
 
 export const privacyConfig = ({ options, updateOption, openPanic }) => ({
   1: {
-    name: 'Site Title',
-    desc: "This setting allows you to change the site's tab title and icon.",
+    name: 'Título del sitio',
+    desc: 'Cambia el título y el icono de la pestaña del sitio.',
     config: meta,
     value: (
       meta.find(
@@ -39,8 +39,8 @@ export const privacyConfig = ({ options, updateOption, openPanic }) => ({
     },
   },
   2: {
-    name: 'Auto Cloak',
-    desc: 'Automatically apply the selected cloak when you switch tabs, restore original when you return.',
+    name: 'Ocultación automática',
+    desc: 'Aplica automáticamente la ocultación al cambiar de pestaña y la restaura al volver.',
     config: meta,
     value: !!options.clkOff,
     type: 'switch',
@@ -53,8 +53,8 @@ export const privacyConfig = ({ options, updateOption, openPanic }) => ({
     disabled: !options.tabName || options.tabName == meta[0].value.tabName,
   },
   3: {
-    name: 'Open about:blank on startup',
-    desc: 'When enabled, the about:blank tab opens automatically when you visit.',
+    name: 'Abrir about:blank al iniciar',
+    desc: 'Cuando se activa, la pestaña about:blank se abre automáticamente al entrar.',
     value:
       options.aboutBlankAutoOpen === true ||
       (options.aboutBlank && options.aboutBlankAutoOpen !== false),
@@ -62,8 +62,8 @@ export const privacyConfig = ({ options, updateOption, openPanic }) => ({
     action: (b) => setTimeout(() => updateOption({ aboutBlankAutoOpen: b }), 100),
   },
   4: {
-    name: 'Panic Key',
-    desc: 'Enable or disable the panic key option.',
+    name: 'Tecla de emergencia',
+    desc: 'Activa o desactiva la tecla de emergencia.',
     value: !!options.panicToggleEnabled,
     type: 'switch',
     action: (b) => {
@@ -74,8 +74,8 @@ export const privacyConfig = ({ options, updateOption, openPanic }) => ({
     },
   },
   5: {
-    name: 'Panic Shortcut',
-    desc: 'Set a keybind/shortcut that redirects you to a page when pressed.',
+    name: 'Atajo de emergencia',
+    desc: 'Configura una tecla que redirige a otra página al pulsarla.',
     value: 'Set Key',
     type: 'button',
     action: openPanic,
@@ -88,7 +88,7 @@ export const customizeConfig = ({ options, updateOption }) => ({
     name: options.language === 'es' ? 'Idioma' : 'Language',
     desc: options.language === 'es' ? 'Selecciona el idioma de la pagina.' : 'Select the site language.',
     config: languageConfig,
-    value: find(languageConfig, (c) => c.value?.language === (options.language ?? 'en'), 0),
+    value: find(languageConfig, (c) => c.value?.language === (options.language ?? 'es'), 0),
     type: 'select',
     action: (a) => {
       updateOption(a);
@@ -111,39 +111,39 @@ export const customizeConfig = ({ options, updateOption }) => ({
     type: 'select',
     action: (a) => updateOption(a),
   },
-  3: {
-    name: options.language === 'es' ? 'Diseno de Fondo' : 'Background Design',
+  4: {
+    name: options.language === 'es' ? 'Diseño de Fondo' : 'Background Design',
     desc: options.language === 'es' ? 'Personaliza el diseno de fondo del sitio.' : "Customize the site's background design.",
     config: designConfig,
     value: find(designConfig, (c) => c.value?.bgDesign === options.bgDesign, 0),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  4: {
-    name: options.language === 'es' ? 'Apps por Pagina' : 'Apps per Page',
+  5: {
+    name: options.language === 'es' ? 'Apps por Página' : 'Apps per Page',
     desc: options.language === 'es' ? 'Numero de apps a mostrar por pagina.' : 'Number of apps to show per page ("All" will show everything).',
     config: appsPerPageConfig,
     value: find(appsPerPageConfig, (c) => c.value.itemsPerPage === (options.itemsPerPage ?? 20), 2),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  5: {
-    name: options.language === 'es' ? 'Escala de Navegacion' : 'Navigation Scale',
+  6: {
+    name: options.language === 'es' ? 'Escala de Navegación' : 'Navigation Scale',
     desc: options.language === 'es' ? 'Escala del tamano de la barra de navegacion.' : 'Scale navigation bar size (logo & font) globally.',
     config: navScaleConfig,
     value: find(navScaleConfig, (c) => c.value.navScale === (options.navScale ?? 1), 3),
     type: 'select',
     action: (a) => updateOption(a),
   },
-  6: {
-    name: options.language === 'es' ? 'Barra de Pestanas' : 'Tabs Bar',
+  7: {
+    name: options.language === 'es' ? 'Barra de Pestañas' : 'Tabs Bar',
     desc: options.language === 'es' ? 'Muestra la barra de pestanas al navegar.' : 'Show the tabs bar, allowing you to open multiple sites when browsing.',
     value: options.showTb ?? true,
     type: 'switch',
     action: (b) => setTimeout(() => updateOption({ showTb: b }), 100),
   },
-  7: {
-    name: options.language === 'es' ? 'Boton de Donacion' : 'Donation button',
+  8: {
+    name: options.language === 'es' ? 'Botón de Donación' : 'Donation button',
     desc: options.language === 'es' ? 'Mostrar u ocultar el boton de apoyo.' : 'Toggle whether you want the "Support us" button to show.',
     value: options.donationBtn ?? true,
     type: 'switch',
@@ -153,16 +153,16 @@ export const customizeConfig = ({ options, updateOption }) => ({
 
 export const browsingConfig = ({ options, updateOption }) => ({
   1: {
-    name: 'Search Engine',
-    desc: 'Choose the default search engine used for queries.',
+    name: 'Motor de búsqueda',
+    desc: 'Elige el motor de búsqueda predeterminado para las consultas.',
     config: searchConfig,
     value: find(searchConfig, (c) => c.value?.engine === options.engine, 0),
     type: 'select',
     action: (a) => updateOption(a),
   },
   2: {
-    name: 'Backend Engine',
-    desc: 'Choose the default engine used for browsing.',
+    name: 'Motor de navegación',
+    desc: 'Elige el motor predeterminado para navegar.',
     config: prConfig,
     value: find(prConfig, (c) => c.value?.prType === options.prType, 0),
     type: 'select',
@@ -172,8 +172,8 @@ export const browsingConfig = ({ options, updateOption }) => ({
 
 export const advancedConfig = ({ options, updateOption }) => ({
   1: {
-    name: 'Confirm Leave',
-    desc: 'Show a confirmation when attempting to leave the site.',
+    name: 'Confirmar salida',
+    desc: 'Muestra una confirmación al intentar salir del sitio.',
     value: !!options.beforeUnload,
     type: 'switch',
     action: (b) => {
@@ -182,8 +182,8 @@ export const advancedConfig = ({ options, updateOption }) => ({
     },
   },
   2: {
-    name: 'Wisp Config',
-    desc: 'Configure the websocket server location.',
+    name: 'Configuración de Wisp',
+    desc: 'Configura la ubicación del servidor WebSocket.',
     value: options.wServer
       ? options.wServer
       : !isStaticBuild
@@ -193,8 +193,8 @@ export const advancedConfig = ({ options, updateOption }) => ({
     action: (b) => updateOption({ wServer: b || null }),
   },
   3: {
-    name: 'Reset Instance',
-    desc: 'Clear your site data if you are having issues.',
+    name: 'Restablecer sitio',
+    desc: 'Borra los datos del sitio si tienes problemas.',
     type: 'button',
     value: 'Reset Data',
     action: () => import('/src/utils/utils.js').then(({ resetInstance }) => resetInstance()),
