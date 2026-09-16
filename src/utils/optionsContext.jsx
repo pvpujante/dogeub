@@ -17,6 +17,8 @@ export const OptionsProvider = ({ children }) => {
     try {
       localStorage.setItem('options', JSON.stringify(options));
     } catch {}
+
+    import('./utils.js').then(({ ckOff }) => ckOff()).catch(() => {});
   }, [options]);
 
   const updateOption = useCallback((obj, immediate = true) => {

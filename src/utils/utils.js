@@ -21,8 +21,12 @@ export const ckOff = () => {
     const { tabName: t, tabIcon: i } = op;
     const { tabName: ogName, tabIcon: ogIcon } = meta[0].value;
     const set = (title, icon) => {
-      document.title = title;
-      document.querySelector("link[rel~='icon']")?.setAttribute('href', icon);
+      document.title = title || ogName;
+      const favicon = document.querySelector("link[rel~='icon']") || document.head.appendChild(
+        Object.assign(document.createElement('link'), { rel: 'icon' }),
+      );
+      const safeIcon = typeof icon === 'string' && icon.startsWith('/assets/') ? '/logo.svg' : icon;
+      favicon.setAttribute('href', safeIcon || '/logo.svg');
     };
     blur && window.removeEventListener('blur', blur);
     focus && window.removeEventListener('focus', focus);

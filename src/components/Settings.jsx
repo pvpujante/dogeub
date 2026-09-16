@@ -62,10 +62,10 @@ const Setting = ({ setting }) => {
 
   return (
     <Container>
-      {setting === 'Privacy' && <Type type={() => privSettings} title="Privacy" />}
-      {setting === 'Customize' && <Type type={settings.customizeConfig} title="Customize" />}
-      {setting === 'Browsing' && <Type type={settings.browsingConfig} title="Browsing" />}
-      {setting === 'Advanced' && <Type type={settings.advancedConfig} title="Advanced" />}
+      {setting === 'Privacidad' && <Type type={() => privSettings} title="Privacidad" />}
+      {setting === 'Personalización' && <Type type={settings.customizeConfig} title="Personalización" />}
+      {setting === 'Navegación' && <Type type={settings.browsingConfig} title="Navegación" />}
+      {setting === 'Avanzado' && <Type type={settings.advancedConfig} title="Avanzado" />}
     </Container>
   );
 };

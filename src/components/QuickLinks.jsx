@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
-import { Plus, Bolt, Globe, Pencil, Trash2, CircleX } from 'lucide-react';
+import { Plus, Bolt, Pencil, Trash2, CircleX } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import LinkDialog from './NewQuickLink';
 import EditLinkDialog from './EditQuickLink';
@@ -111,18 +111,14 @@ const QuickLinks = ({ cls, nav = true, navigating }) => {
           </div>
 
           <div className={linkLogo}>
-            {fallback[i] ? (
-              <Globe className="w-7 h-7" />
-            ) : (
-              <img
-                key={link.icon}
-                src={link.icon}
-                alt={link.name}
-                className="w-7 h-7 object-contain"
-                loading="lazy"
-                onError={() => setFallback((p) => ({ ...p, [i]: true }))}
-              />
-            )}
+            <img
+              key={`${link.icon}-${fallback[i] || ''}`}
+              src={fallback[i] || link.icon}
+              alt={`${link.name} icon`}
+              className="w-7 h-7 object-contain"
+              loading="lazy"
+              onError={() => setFallback((p) => ({ ...p, [i]: '/logo.svg' }))}
+            />
           </div>
           <div className="mt-3 text-sm font-medium text-center w-full px-1 overflow-hidden whitespace-nowrap text-ellipsis">
             {link.name}
