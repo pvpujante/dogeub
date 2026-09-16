@@ -10,8 +10,16 @@ import {
 
 // Language configuration
 export const languageConfig = [
-  { label: 'English', value: { language: 'en' } },
-  { label: 'Espanol', value: { language: 'es' } },
+  { option: 'English', value: { language: 'en' } },
+  { option: 'Espanol', value: { language: 'es' } },
+];
+
+export const layoutConfig = [
+  { option: 'Classic / Clasico', value: { layoutMode: 'classic' } },
+  { option: 'Classroom / Classroom', value: { layoutMode: 'classroom' } },
+  { option: 'Docs / Documentos', value: { layoutMode: 'docs' } },
+  { option: 'Drive / Unidad', value: { layoutMode: 'drive' } },
+  { option: 'Focus / Enfoque', value: { layoutMode: 'focus' } },
 ];
 
 export const privacyConfig = ({ options, updateOption, openPanic }) => ({
@@ -88,6 +96,14 @@ export const customizeConfig = ({ options, updateOption }) => ({
     },
   },
   2: {
+    name: options.language === 'es' ? 'Diseño de pagina' : 'Page layout',
+    desc: options.language === 'es' ? 'Elige una presentacion: clasica, aula, documentos, unidad o enfoque.' : 'Choose a presentation: classic, classroom, documents, drive, or focus.',
+    config: layoutConfig,
+    value: find(layoutConfig, (c) => c.value?.layoutMode === (options.layoutMode ?? 'classic'), 0),
+    type: 'select',
+    action: (a) => updateOption(a),
+  },
+  3: {
     name: options.language === 'es' ? 'Tema del Sitio' : 'Site Theme',
     desc: options.language === 'es' ? 'Personaliza la apariencia del sitio seleccionando un tema.' : 'Customize the appearance of the website by selecting a theme.',
     config: themeConfig,
