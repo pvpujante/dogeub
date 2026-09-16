@@ -180,7 +180,28 @@
         "url": "/games/doom/index.html",
         "disabled": false,
         "local": false,
-        "doom": true
+        "doom": true,
+        "featured": true,
+        "tags": ["accion", "clasico", "offline"]
+      },
+      {
+        "appName": "Hextris",
+        "desc": "Puzzle arcade open source, rapido y ligero.",
+        "icon": "/assets-fb/2048/2048.png",
+        "url": "https://hextris.io/",
+        "disabled": false,
+        "local": false,
+        "featured": true,
+        "tags": ["puzzle", "rapido", "arcade"]
+      },
+      {
+        "appName": "2048 Open Source",
+        "desc": "El clasico puzzle de numeros, jugable sin cuenta.",
+        "icon": "/assets-fb/2048/2048.png",
+        "url": "https://play2048.co/",
+        "disabled": false,
+        "local": false,
+        "tags": ["puzzle", "relajado"]
       },
       {
         "appName": "Retro Bowl",

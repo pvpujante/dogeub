@@ -15,6 +15,7 @@ import {
   Type
 } from 'lucide-react';
 import clsx from 'clsx';
+import appsCatalog from '../data/apps.json';
 
 const tools = [
   {
@@ -107,7 +108,23 @@ const ChatAI = memo(() => {
   // Base de conocimiento para respuestas inteligentes
   const generateResponse = (userMsg) => {
     const msg = userMsg.toLowerCase().trim();
-    
+    const catalogGames = Object.values(appsCatalog.games || {}).flat();
+    const gameMatches = catalogGames.filter((game) => {
+      const haystack = [game.appName, game.desc, ...(game.tags || [])].join(' ').toLowerCase();
+      return msg.split(/\s+/).some((word) => word.length > 3 && haystack.includes(word));
+    }).slice(0, 5);
+
+    if (/juegos locales|juegos offline|sin internet|que puedo jugar/i.test(msg)) {
+      const localGames = catalogGames.filter((game) => game.local === true || game.doom).slice(0, 6);
+      return localGames.length
+        ? `Te recomiendo estos juegos disponibles localmente: ${localGames.map((game) => game.appName).join(', ')}. Abre Juegos y pulsa el filtro Local.`
+        : 'Ahora mismo no hay juegos locales descargados. Abre Juegos y revisa el catálogo disponible.';
+    }
+
+    if (/recomiend|buscar juego|quiero jugar|juego para/i.test(msg) && gameMatches.length) {
+      return `He encontrado estas opciones para ti: ${gameMatches.map((game) => `${game.appName} (${game.desc})`).join(' · ')}. Puedes abrirlas desde Juegos.`;
+    }
+
     // Saludos
     if (/^(hola|hey|buenas|saludos|hi|hello|que tal|como estas)/i.test(msg)) {
       const saludos = [

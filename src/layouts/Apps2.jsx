@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useEffect, useCallback, memo, useRef, lazy, Suspense } from 'react';
-import { Search, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Play, HardDrive, Globe, Sparkles, SlidersHorizontal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -12,6 +12,7 @@ const Pagination = lazy(() => import('@mui/material/Pagination'));
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
   const isLocal = app.local === true;
+  const isFeatured = app.featured === true;
   const fallbackIcon = '/logo.svg';
   
   return (
@@ -39,6 +40,11 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
           onLoad={() => setLoaded(true)}
           onError={() => onImgError(app.appName)}
         />
+        {isFeatured && (
+          <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-amber-400 text-black text-[10px] font-bold">
+            DESTACADO
+          </div>
+        )}
         <div 
           className={clsx(
             "absolute bottom-1 right-1 p-1 rounded-md",
@@ -56,8 +62,8 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
       <p className="text-m font-semibold mb-3 flex-grow line-clamp-2">{app.appName.split('').join('\u200B')}</p>
       <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffffff15] hover:bg-[#ffffff25] transition-colors text-sm font-medium mt-auto self-start">
         <Play size={16} fill="currentColor" />
-        Play
-      </button>
+          Abrir
+        </button>
     </div>
   );
 });
@@ -253,7 +259,15 @@ const Games = memo(() => {
 
   return (
     <div className={`${styles.appContainer} w-full mx-auto`}>
-      <div className="w-full px-4 py-4 flex flex-col items-center gap-3 mt-3 relative">
+      <div className="gamesHero w-full px-4 py-6 flex flex-col items-center gap-4 mt-3 relative">
+        <div className="w-full max-w-7xl flex items-center justify-between gap-4 px-2">
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] opacity-50 flex items-center gap-2"><Sparkles size={13} /> Biblioteca BusicoHub</p>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight">Juega a tu manera</h1>
+            <p className="text-sm opacity-60 mt-1">{all.length} experiencias listas para descubrir, con favoritos locales y juegos web.</p>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 text-xs opacity-60"><SlidersHorizontal size={15} /> Filtra por origen</div>
+        </div>
         {(category || showDl) && (
           <button
             onClick={handleBack}

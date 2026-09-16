@@ -48,7 +48,7 @@ const SearchContainer = memo(function SearchContainer({ logo = true, cls }) {
       
       <div className="mt-8 text-center mb-8">
         <h2 className="text-2xl font-bold mb-2">Bienvenido a BusicoHub</h2>
-        <p className="opacity-60">Tu espacio de entretenimiento sin limites</p>
+        <p className="opacity-60">Tu espacio de entretenimiento, juegos y herramientas en un solo lugar</p>
       </div>
 
       <GlowWrapper
