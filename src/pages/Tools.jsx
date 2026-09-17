@@ -15,6 +15,7 @@ import {
   Type
 } from 'lucide-react';
 import clsx from 'clsx';
+import appsCatalog from '../data/apps.json';
 
 const tools = [
   {
@@ -34,14 +35,14 @@ const tools = [
   {
     id: 'calculator',
     name: 'Calculadora',
-    desc: 'Calculadora cientifica',
+    desc: 'Calculadora rápida y científica',
     icon: Calculator,
     color: 'bg-blue-600',
   },
   {
     id: 'timer',
     name: 'Temporizador',
-    desc: 'Cuenta atras y cronometro',
+    desc: 'Cuenta atrás y cronómetro',
     icon: Timer,
     color: 'bg-green-600',
   },
@@ -107,7 +108,23 @@ const ChatAI = memo(() => {
   // Base de conocimiento para respuestas inteligentes
   const generateResponse = (userMsg) => {
     const msg = userMsg.toLowerCase().trim();
-    
+    const catalogGames = Object.values(appsCatalog.games || {}).flat();
+    const gameMatches = catalogGames.filter((game) => {
+      const haystack = [game.appName, game.desc, ...(game.tags || [])].join(' ').toLowerCase();
+      return msg.split(/\s+/).some((word) => word.length > 3 && haystack.includes(word));
+    }).slice(0, 5);
+
+    if (/juegos locales|juegos offline|sin internet|que puedo jugar/i.test(msg)) {
+      const localGames = catalogGames.filter((game) => game.local === true || game.doom).slice(0, 6);
+      return localGames.length
+        ? `Te recomiendo estos juegos disponibles localmente: ${localGames.map((game) => game.appName).join(', ')}. Abre Juegos y pulsa el filtro Local.`
+        : 'Ahora mismo no hay juegos locales descargados. Abre Juegos y revisa el catálogo disponible.';
+    }
+
+    if (/recomiend|buscar juego|quiero jugar|juego para/i.test(msg) && gameMatches.length) {
+      return `He encontrado estas opciones para ti: ${gameMatches.map((game) => `${game.appName} (${game.desc})`).join(' · ')}. Puedes abrirlas desde Juegos.`;
+    }
+
     // Saludos
     if (/^(hola|hey|buenas|saludos|hi|hello|que tal|como estas)/i.test(msg)) {
       const saludos = [
@@ -176,7 +193,7 @@ const ChatAI = memo(() => {
     if (/dato curioso|curiosidad|sabias que|dime algo interesante/i.test(msg)) {
       const datos = [
         'Sabias que los pulpos tienen tres corazones? Dos bombean sangre a las branquias y uno al resto del cuerpo.',
-        'El miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 a��os!',
+        'La miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 años.',
         'Los flamencos nacen blancos y se vuelven rosas por su dieta de camarones.',
         'Una persona promedio pasa 6 meses de su vida esperando que los semaforos cambien a verde.',
         'El cerebro humano puede almacenar aproximadamente 2.5 petabytes de informacion.',
@@ -425,7 +442,12 @@ const ChatAI = memo(() => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
                 placeholder="Escribe un mensaje..."
                 className="flex-1 bg-[#ffffff10] rounded-full px-4 py-2 outline-none"
                 disabled={isTyping}

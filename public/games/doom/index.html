@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Freedoom</title>
+    <link rel="stylesheet" href="./js-dos.css" />
+    <style>
+      html, body, #jsdos { width: 100%; height: 100%; margin: 0; background: #050505; overflow: hidden; }
+      #jsdos canvas { width: 100% !important; height: 100% !important; object-fit: contain; }
+    </style>
+  </head>
+  <body>
+    <div id="jsdos" aria-label="Freedoom game"></div>
+    <script src="./js-dos.js"></script>
+    <script>
+      window.addEventListener('load', function () {
+        if (!window.Dos) return;
+        Dos(document.getElementById('jsdos'), {
+          wdosboxUrl: './wdosbox.js',
+          wdosboxWasmUrl: './js-dos.wasm',
+          emulators: {
+            wdosbox: './wdosbox.js',
+            wlibzip: './wlibzip.js'
+          }
+        }).run('./freedoom.jsdos');
+      });
+    </script>
+  </body>
+</html>

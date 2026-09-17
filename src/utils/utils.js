@@ -25,8 +25,8 @@ export const ckOff = () => {
       const favicon = document.querySelector("link[rel~='icon']") || document.head.appendChild(
         Object.assign(document.createElement('link'), { rel: 'icon' }),
       );
-      const safeIcon = typeof icon === 'string' && icon.startsWith('/assets/') ? '/logo.svg' : icon;
-      favicon.setAttribute('href', safeIcon || '/logo.svg');
+      const safeIcon = typeof icon === 'string' && icon.trim() ? icon : '/logo.svg';
+      favicon.setAttribute('href', safeIcon);
     };
     blur && window.removeEventListener('blur', blur);
     focus && window.removeEventListener('focus', focus);

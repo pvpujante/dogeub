@@ -1,6 +1,6 @@
 import Nav from '../layouts/Nav';
 import { useState, useMemo, useEffect, useCallback, memo, useRef, lazy, Suspense } from 'react';
-import { Search, ChevronLeft, ChevronRight, Play, HardDrive, Globe } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Play, HardDrive, Globe, Sparkles, SlidersHorizontal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
 import styles from '../styles/apps.module.css';
@@ -9,10 +9,20 @@ import clsx from 'clsx';
 
 const Pagination = lazy(() => import('@mui/material/Pagination'));
 
+const getAppIcon = (app) => {
+  if (app.icon) return app.icon;
+  const source = Array.isArray(app.url) ? app.url[0] : app.url;
+  try {
+    return `https://www.google.com/s2/favicons?sz=128&domain=${new URL(source, window.location.origin).hostname}`;
+  } catch {
+    return '/logo.svg';
+  }
+};
+
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
   const isLocal = app.local === true;
-  const fallbackIcon = '/logo.svg';
+  const isFeatured = app.featured === true;
   
   return (
     <div
@@ -31,7 +41,7 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
           <div className="absolute inset-0 bg-gray-700 animate-pulse" />
         )}
         <img
-          src={fallbackMap[app.appName] || app.icon}
+          src={fallbackMap[app.appName] || getAppIcon(app)}
           draggable="false"
           loading="lazy"
           alt={`${app.appName} icon`}
@@ -39,6 +49,11 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
           onLoad={() => setLoaded(true)}
           onError={() => onImgError(app.appName)}
         />
+        {isFeatured && (
+          <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-amber-400 text-black text-[10px] font-bold">
+            DESTACADO
+          </div>
+        )}
         <div 
           className={clsx(
             "absolute bottom-1 right-1 p-1 rounded-md",
@@ -56,8 +71,8 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
       <p className="text-m font-semibold mb-3 flex-grow line-clamp-2">{app.appName.split('').join('\u200B')}</p>
       <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffffff15] hover:bg-[#ffffff25] transition-colors text-sm font-medium mt-auto self-start">
         <Play size={16} fill="currentColor" />
-        Play
-      </button>
+          Abrir
+        </button>
     </div>
   );
 });
@@ -159,9 +174,17 @@ const Games = memo(() => {
   const perPage = options.itemsPerPage || 20;
 
   const all = useMemo(() => {
+    const seen = new Set();
     const games = [];
     Object.values(data).forEach((cats) => {
-      games.push(...cats);
+      cats.forEach((game) => {
+        const source = Array.isArray(game.url) ? game.url[0] : game.url;
+        const key = `${game.appName}::${source}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          games.push(game);
+        }
+      });
     });
     return games;
   }, [data]);
@@ -240,8 +263,16 @@ const Games = memo(() => {
   }, []);
 
   const handleImgError = useCallback(
-    (name) => setFallback((prev) => ({ ...prev, [name]: '/logo.svg' })),
-    [],
+    (name) => {
+      const failed = all.find((game) => game.appName === name);
+      const source = Array.isArray(failed?.url) ? failed.url[0] : failed?.url;
+      let fallbackIcon = '/logo.svg';
+      try {
+        fallbackIcon = `https://www.google.com/s2/favicons?sz=128&domain=${new URL(source, window.location.origin).hostname}`;
+      } catch {}
+      setFallback((prev) => ({ ...prev, [name]: fallbackIcon }));
+    },
+    [all],
   );
 
   const searchCls = useMemo(
@@ -253,7 +284,15 @@ const Games = memo(() => {
 
   return (
     <div className={`${styles.appContainer} w-full mx-auto`}>
-      <div className="w-full px-4 py-4 flex flex-col items-center gap-3 mt-3 relative">
+      <div className="gamesHero w-full px-4 py-6 flex flex-col items-center gap-4 mt-3 relative">
+        <div className="w-full max-w-7xl flex items-center justify-between gap-4 px-2">
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] opacity-50 flex items-center gap-2"><Sparkles size={13} /> Biblioteca BusicoHub</p>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight">Juega a tu manera</h1>
+            <p className="text-sm opacity-60 mt-1">{all.length} experiencias listas para descubrir, con favoritos locales y juegos web.</p>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 text-xs opacity-60"><SlidersHorizontal size={15} /> Filtra por origen</div>
+        </div>
         {(category || showDl) && (
           <button
             onClick={handleBack}

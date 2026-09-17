@@ -15,6 +15,7 @@ import theming from '/src/styles/theming.module.css';
 import clsx from 'clsx';
 import Tooltip from '@mui/material/Tooltip';
 import loaderStore from '/src/utils/hooks/loader/useLoaderStore';
+import DoomFrame from './DoomFrame';
 
 const Loader = ({ theme, app }) => {
   const nav = useNavigate();
@@ -79,6 +80,8 @@ const Loader = ({ theme, app }) => {
         <div className="w-full flex-grow flex items-center justify-center">
           {downloading ? 'Downloading...' : 'Loading...'}
         </div>
+      ) : app?.doom ? (
+        <DoomFrame />
       ) : (
         <iframe
           key={isLocal ? gmUrl : app?.url}
