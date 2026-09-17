@@ -35,14 +35,14 @@ const tools = [
   {
     id: 'calculator',
     name: 'Calculadora',
-    desc: 'Calculadora cientifica',
+    desc: 'Calculadora rápida y científica',
     icon: Calculator,
     color: 'bg-blue-600',
   },
   {
     id: 'timer',
     name: 'Temporizador',
-    desc: 'Cuenta atras y cronometro',
+    desc: 'Cuenta atrás y cronómetro',
     icon: Timer,
     color: 'bg-green-600',
   },
@@ -193,7 +193,7 @@ const ChatAI = memo(() => {
     if (/dato curioso|curiosidad|sabias que|dime algo interesante/i.test(msg)) {
       const datos = [
         'Sabias que los pulpos tienen tres corazones? Dos bombean sangre a las branquias y uno al resto del cuerpo.',
-        'El miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 a��os!',
+        'La miel nunca se echa a perder. Se ha encontrado miel comestible en tumbas egipcias de 3000 años.',
         'Los flamencos nacen blancos y se vuelven rosas por su dieta de camarones.',
         'Una persona promedio pasa 6 meses de su vida esperando que los semaforos cambien a verde.',
         'El cerebro humano puede almacenar aproximadamente 2.5 petabytes de informacion.',
@@ -442,7 +442,12 @@ const ChatAI = memo(() => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
                 placeholder="Escribe un mensaje..."
                 className="flex-1 bg-[#ffffff10] rounded-full px-4 py-2 outline-none"
                 disabled={isTyping}

@@ -13,14 +13,20 @@ const version = pkg.version;
 const itemSize = 16;
 
 const navItems = [
-  { name: 'Tools', id: 'btn-a', type: Wrench, route: '/materials' },
-  { name: 'Games', id: 'btn-g', type: Gamepad2, route: '/docs' },
-  { name: 'Settings', id: 'btn-s', type: Cog, route: '/settings' },
+  { key: 'tools', name: 'Herramientas', id: 'btn-a', type: Wrench, route: '/materials' },
+  { key: 'games', name: 'Juegos', id: 'btn-g', type: Gamepad2, route: '/docs' },
+  { key: 'settings', name: 'Ajustes', id: 'btn-s', type: Cog, route: '/settings' },
 ];
+
+const navLabels = {
+  es: { tools: 'Herramientas', games: 'Juegos', settings: 'Ajustes' },
+  en: { tools: 'Tools', games: 'Games', settings: 'Settings' },
+};
 
 const Nav = memo(() => {
   const navigate = useNavigate();
   const { options } = useOptions();
+  const labels = navLabels[options.language || 'es'] || navLabels.es;
 
   const scale = Number(options.navScale || 1);
   const dimensions = useMemo(
@@ -40,10 +46,11 @@ const Nav = memo(() => {
     () =>
       navItems.map((item) => ({
         ...item,
+        name: labels[item.key],
         size: itemSize,
         onClick: () => navigate(item.route),
       })),
-    [navigate],
+    [labels, navigate],
   );
 
   return (

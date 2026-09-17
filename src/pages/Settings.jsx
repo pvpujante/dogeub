@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import Nav from '../layouts/Nav';
 import theme from '../styles/theming.module.css';
-import { Search, HatGlasses, Palette, Globe, Wrench } from 'lucide-react';
+import { Search, HatGlasses, Palette, Wrench } from 'lucide-react';
 import { useOptions } from '/src/utils/optionsContext';
 import RenderSetting from '../components/Settings';
 
@@ -43,12 +43,6 @@ const baseConfigs = [
       'focus',
     ],
     key: 'customizeConfig',
-  },
-  {
-    name: 'Navegación',
-    icon: Globe,
-    keywords: ['tabs', 'tab', 'type', 'search engine',],
-    key: 'browsingConfig',
   },
   {
     name: 'Avanzado',

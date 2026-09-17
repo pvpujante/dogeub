@@ -64,7 +64,6 @@ const Setting = ({ setting }) => {
     <Container>
       {setting === 'Privacidad' && <Type type={() => privSettings} title="Privacidad" />}
       {setting === 'Personalización' && <Type type={settings.customizeConfig} title="Personalización" />}
-      {setting === 'Navegación' && <Type type={settings.browsingConfig} title="Navegación" />}
       {setting === 'Avanzado' && <Type type={settings.advancedConfig} title="Avanzado" />}
     </Container>
   );
