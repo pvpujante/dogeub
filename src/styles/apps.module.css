@@ -44,9 +44,16 @@ input {
   flex-direction: column;
 }
 
+.app {
+  border: 1px solid transparent;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
 .app:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.22);
+  border-color: var(--hub-accent-soft);
+  background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
 }
 
 .gamesHero {

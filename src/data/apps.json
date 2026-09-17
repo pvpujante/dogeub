@@ -176,7 +176,7 @@
       {
         "appName": "DOOM (Freedoom)",
         "desc": "Classic first-person action powered by the libre Freedoom IWAD.",
-        "icon": "/logo.svg",
+        "icon": "/assets/img/freedoom.png",
         "url": "/games/doom/index.html",
         "disabled": false,
         "local": false,

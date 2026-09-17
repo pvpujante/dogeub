@@ -9,11 +9,20 @@ import clsx from 'clsx';
 
 const Pagination = lazy(() => import('@mui/material/Pagination'));
 
+const getAppIcon = (app) => {
+  if (app.icon) return app.icon;
+  const source = Array.isArray(app.url) ? app.url[0] : app.url;
+  try {
+    return `https://www.google.com/s2/favicons?sz=128&domain=${new URL(source, window.location.origin).hostname}`;
+  } catch {
+    return '/logo.svg';
+  }
+};
+
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => {
   const [loaded, setLoaded] = useState(false);
   const isLocal = app.local === true;
   const isFeatured = app.featured === true;
-  const fallbackIcon = '/logo.svg';
   
   return (
     <div
@@ -32,7 +41,7 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
           <div className="absolute inset-0 bg-gray-700 animate-pulse" />
         )}
         <img
-          src={fallbackMap[app.appName] || app.icon}
+          src={fallbackMap[app.appName] || getAppIcon(app)}
           draggable="false"
           loading="lazy"
           alt={`${app.appName} icon`}
@@ -165,9 +174,17 @@ const Games = memo(() => {
   const perPage = options.itemsPerPage || 20;
 
   const all = useMemo(() => {
+    const seen = new Set();
     const games = [];
     Object.values(data).forEach((cats) => {
-      games.push(...cats);
+      cats.forEach((game) => {
+        const source = Array.isArray(game.url) ? game.url[0] : game.url;
+        const key = `${game.appName}::${source}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          games.push(game);
+        }
+      });
     });
     return games;
   }, [data]);
@@ -246,8 +263,16 @@ const Games = memo(() => {
   }, []);
 
   const handleImgError = useCallback(
-    (name) => setFallback((prev) => ({ ...prev, [name]: '/logo.svg' })),
-    [],
+    (name) => {
+      const failed = all.find((game) => game.appName === name);
+      const source = Array.isArray(failed?.url) ? failed.url[0] : failed?.url;
+      let fallbackIcon = '/logo.svg';
+      try {
+        fallbackIcon = `https://www.google.com/s2/favicons?sz=128&domain=${new URL(source, window.location.origin).hostname}`;
+      } catch {}
+      setFallback((prev) => ({ ...prev, [name]: fallbackIcon }));
+    },
+    [all],
   );
 
   const searchCls = useMemo(
