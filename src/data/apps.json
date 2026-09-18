@@ -174,15 +174,34 @@
   "games": {
     "Popular": [
       {
-        "appName": "DOOM (Freedoom)",
-        "desc": "Classic first-person action powered by the libre Freedoom IWAD.",
-        "icon": "/assets/img/freedoom.png",
-        "url": "/games/doom/index.html",
+        "appName": "Silent Space Marine",
+        "desc": "Aventura espacial y combate retro directamente en el navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=silentspacemarine.com",
+        "url": "https://silentspacemarine.com/",
         "disabled": false,
         "local": false,
-        "doom": true,
         "featured": true,
-        "tags": ["accion", "clasico", "offline"]
+        "tags": ["accion", "espacio", "retro"]
+      },
+      {
+        "appName": "Floppy Bird",
+        "desc": "Supera las tuberías en este arcade rápido y adictivo.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=nebezb.com",
+        "url": "https://nebezb.com/floppybird",
+        "disabled": false,
+        "local": false,
+        "featured": true,
+        "tags": ["arcade", "habilidad", "clasico"]
+      },
+      {
+        "appName": "Messenger",
+        "desc": "Mensajería web ligera para comunicarte desde el navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=messenger.abeto.co",
+        "url": "https://messenger.abeto.co/",
+        "disabled": false,
+        "local": false,
+        "featured": true,
+        "tags": ["social", "mensajeria", "web"]
       },
       {
         "appName": "Hextris",
