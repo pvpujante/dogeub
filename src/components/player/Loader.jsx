@@ -1,14 +1,12 @@
 import { useRef, useState, useCallback } from 'react';
 import {
   Maximize2,
-  SquareArrowOutUpRight,
   ZoomIn,
   ZoomOut,
   Cloud,
   HardDrive,
 } from 'lucide-react';
 import { useLocalGmLoader } from '/src/utils/hooks/player/useLocalGmLoader';
-import { useNavigate } from 'react-router-dom';
 import Control from './Controls';
 import InfoCard from './InfoCard';
 import theming from '/src/styles/theming.module.css';
@@ -34,14 +32,6 @@ const Loader = ({ theme, app }) => {
       activeFrameRef.current?.requestFullscreen?.();
     }
   }, [activeFrameRef]);
-
-  const external = useCallback(() => {
-    nav('/search', {
-      state: {
-        url: app?.url,
-      },
-    });
-  }, [app?.url]);
 
   const handleZoom = useCallback((direction) => {
     setZoom((prev) => {
@@ -83,32 +73,27 @@ const Loader = ({ theme, app }) => {
       ) : app?.doom ? (
         <DoomFrame />
       ) : (
-        <iframe
-          key={isLocal ? gmUrl : app?.url}
-          src={isLocal ? gmUrl : app?.url}
-          ref={gmRef}
-          onContextMenu={(e) => e.preventDefault()}
-          className="w-full flex-grow"
-          style={{ zoom: zoom }}
-          sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-pointer-lock"
-          allow="fullscreen; autoplay"
-        />
+        <div className="relative flex-grow min-h-0 overflow-hidden bg-black">
+          <iframe
+            key={isLocal ? gmUrl : app?.url}
+            src={isLocal ? gmUrl : app?.url}
+            ref={gmRef}
+            title={`${app?.appName || 'Juego'} integrado`}
+            onContextMenu={(e) => e.preventDefault()}
+            className="h-full w-full border-0"
+            style={{ zoom: zoom }}
+            sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-pointer-lock"
+            allow="fullscreen; autoplay; gamepad"
+          />
+        </div>
       )}
 
       <div className="p-2.5 flex gap-2 border-t">
-        {isLocal ? (
-          <Tooltip title="Local games can't open in browser" arrow placement="top">
-            <div className="cursor-not-allowed">
-              <Control
-                icon={SquareArrowOutUpRight}
-                fn={null}
-                className="cursor-not-allowed opacity-50 pointer-events-none"
-              />
-            </div>
-          </Tooltip>
-        ) : (
-          <Control icon={SquareArrowOutUpRight} fn={external} />
-        )}
+        <Tooltip title="El juego se mantiene dentro de esta página" arrow placement="top">
+          <div className="flex items-center px-2 text-xs opacity-60">
+            Modo integrado
+          </div>
+        </Tooltip>
 
         <div className="ml-auto" />
         <Control icon={ZoomIn} fn={() => handleZoom('in')} />
