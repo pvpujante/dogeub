@@ -1,10 +1,13 @@
 import { useRef, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Maximize2,
   ZoomIn,
   ZoomOut,
   Cloud,
   HardDrive,
+  ShieldCheck,
+  ExternalLink,
 } from 'lucide-react';
 import { useLocalGmLoader } from '/src/utils/hooks/player/useLocalGmLoader';
 import Control from './Controls';
@@ -49,21 +52,26 @@ const Loader = ({ theme, app }) => {
         theming[`theme-${theme || 'default'}`],
       )}
     >
-      <div className="p-2 pl-1 border-b flex gap-2 items-center">
-        <InfoCard app={app} theme={theme} />
-        <Tooltip
-          title={isLocal ? 'Downloaded to device (local)' : 'Fetched from web'}
-          arrow
-          placement="top"
-        >
-          <div className="flex items-center ml-auto mr-5">
-            {isLocal ? (
-              <HardDrive size={18} className="opacity-80" />
-            ) : (
-              <Cloud size={18} className="opacity-80" />
-            )}
-          </div>
-        </Tooltip>
+      <div className="gameTopbar">
+        <div className="gameIdentity">
+          <InfoCard app={app} theme={theme} />
+          <span className="gameSourceBadge">
+            {isLocal ? <HardDrive size={13} /> : <Cloud size={13} />}
+            {isLocal ? 'Local' : 'Web'}
+          </span>
+        </div>
+        <div className="gameActions">
+          <Tooltip title="El juego está aislado dentro de la página" arrow placement="top">
+            <span className="gameSecureBadge"><ShieldCheck size={14} /> Seguro</span>
+          </Tooltip>
+          {!isLocal && (
+            <Tooltip title="Abrir en una pestaña nueva" arrow placement="top">
+              <button className="gameIconButton" type="button" onClick={() => window.open(app?.url, '_blank', 'noopener,noreferrer')} aria-label="Abrir juego en nueva pestaña">
+                <ExternalLink size={15} />
+              </button>
+            </Tooltip>
+          )}
+        </div>
       </div>
 
       {loading ? (
@@ -80,8 +88,10 @@ const Loader = ({ theme, app }) => {
             ref={gmRef}
             title={`${app?.appName || 'Juego'} integrado`}
             onContextMenu={(e) => e.preventDefault()}
-            className="h-full w-full border-0"
+            className="gameFrame"
             style={{ zoom: zoom }}
+            loading="eager"
+            referrerPolicy="no-referrer"
             sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-pointer-lock"
             allow="fullscreen; autoplay; gamepad"
           />

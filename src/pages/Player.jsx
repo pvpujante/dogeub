@@ -17,10 +17,10 @@ const Player = () => {
   return (
     <>
       <Nav />
-      <div className="w-[80%] mx-auto flex flex-col gap-4 mt-4 mb-8">
+      <main className="w-[min(1180px,calc(100%-32px))] mx-auto flex flex-col gap-3 mt-4 mb-8">
         <Breadcrumb theme={options.theme} name={app.appName} />
         <Loader theme={options.theme} app={app} />
-      </div>
+      </main>
     </>
   );
 };
