@@ -49,7 +49,7 @@ const ThemedApp = memo(() => {
       { path: '/', element: <Home /> },
       { path: '/materials', element: <Tools /> },
       { path: '/docs', element: <Apps2 /> },
-      { path: '/docs/r', element: <Player /> },
+      { path: '/docs/r/:gameSlug', element: <Player /> },
       { path: '/settings', element: <Settings /> },
       { path: '/portal/k12/*', element: <NotFound /> },
       { path: '/ham/*', element: <NotFound /> },
