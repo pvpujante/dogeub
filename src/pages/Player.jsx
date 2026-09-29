@@ -1,15 +1,23 @@
 import Nav from '../layouts/Nav';
 import Breadcrumb from '../components/player/Breadcrumb';
 import Loader from '../components/player/Loader';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, useParams, Navigate } from 'react-router-dom';
 import { useOptions } from '/src/utils/optionsContext';
+import appsData from '/src/data/apps.json';
+
+const slugify = (value = '') => value.trim().toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
 
 const Player = () => {
   const location = useLocation();
-  const app = location.state?.app;
+  const { gameSlug } = useParams();
   const { options } = useOptions();
+  const catalog = [
+    ...(appsData.apps || []),
+    ...Object.values(appsData.games || {}).flat(),
+  ];
+  const app = location.state?.app || catalog.find((item) => slugify(item.appName) === gameSlug);
 
-  //handling when directly nav to /docs/r/
+  // Keep direct links and refreshed game pages playable instead of returning to the catalog.
   if (!app) {
     return <Navigate to="/docs" replace />;
   }

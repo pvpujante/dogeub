@@ -230,7 +230,8 @@ const Games = memo(() => {
   const navApp = useCallback(
     (app) => {
       if (!app) return;
-      nav('/docs/r/', { state: { app } });
+      const slug = encodeURIComponent(app.appName.trim().toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, ''));
+      nav(`/docs/r/${slug}`, { state: { app } });
     },
     [nav],
   );
