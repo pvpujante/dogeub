@@ -60,6 +60,74 @@ input {
   background: radial-gradient(circle at 50% -30%, var(--hub-accent-soft), transparent 58%);
 }
 
+.homeShell {
+  min-height: 100vh;
+  background: radial-gradient(circle at 18% 8%, rgba(124, 92, 255, .14), transparent 34%), #0b0b10;
+}
+
+.homeDashboard {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0 70px;
+}
+
+.welcomePanel,
+.quickLinksPanel {
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+  box-shadow: 0 24px 70px rgba(0,0,0,.18);
+}
+
+.welcomePanel {
+  min-height: 300px;
+  padding: clamp(28px, 5vw, 58px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(220px, .65fr);
+  gap: 28px;
+  align-items: end;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #a99bff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.welcomePanel h1 {
+  max-width: 680px;
+  margin: 18px 0 14px;
+  font-size: clamp(2.25rem, 6vw, 4.7rem);
+  line-height: .98;
+  letter-spacing: -.06em;
+}
+
+.welcomePanel p { max-width: 560px; color: rgba(255,255,255,.6); font-size: 16px; }
+.welcomeLinks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.welcomeLinks button { display: inline-flex; align-items: center; gap: 7px; padding: 11px 15px; border-radius: 12px; background: #fff; color: #111; font-weight: 700; }
+.welcomeLinks button + button { background: rgba(255,255,255,.09); color: #fff; }
+.statusCard { padding: 20px; border-radius: 18px; background: rgba(0,0,0,.2); border: 1px solid rgba(255,255,255,.08); }
+.statusCard span, .statusCard small { display: block; color: rgba(255,255,255,.55); font-size: 12px; }
+.statusCard strong { display: block; margin: 8px 0; font-size: 19px; }
+.statusCard small { line-height: 1.5; }
+.quickLinksPanel { margin-top: 18px; padding: 24px; }
+.sectionHeading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 18px; }
+.sectionHeading h2 { margin-top: 5px; font-size: 25px; letter-spacing: -.03em; }
+.sectionHint { color: rgba(255,255,255,.42); font-size: 13px; }
+.quickLinksGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.quickLinkCard { display: flex; align-items: center; gap: 13px; padding: 16px; text-align: left; border: 1px solid rgba(255,255,255,.08); border-radius: 17px; color: white; transition: transform .18s ease, background .18s ease; }
+.quickLinkCard:hover { transform: translateY(-3px); background: rgba(255,255,255,.1); }
+.quickLinkCard strong, .quickLinkCard small { display: block; }
+.quickLinkCard small { margin-top: 4px; color: rgba(255,255,255,.52); font-size: 12px; }
+.quickLinkIcon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; }
+.violet .quickLinkIcon { background: #7657e8; } .blue .quickLinkIcon { background: #2f83d8; } .green .quickLinkIcon { background: #2f9b75; }
+.quickLinkArrow { margin-left: auto; color: rgba(255,255,255,.45); }
+.legacySearch { min-height: 280px; position: relative; margin-top: 18px; overflow: hidden; border-radius: 24px; }
+
 .app button {
   cursor: pointer;
 }
