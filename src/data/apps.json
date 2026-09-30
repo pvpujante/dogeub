@@ -463,27 +463,7 @@
         "local": true
       }
     ],
-    "Recursos externos": [
-      {
-        "appName": "Minecraft 1.8.8",
-        "desc": "Recurso jugable alojado en Classroom.",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
-        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/Vs4NRBlkenH_A4mgzMGqACTh",
-        "disabled": false,
-        "local": false,
-        "external": true,
-        "tags": ["minecraft", "sandbox", "web"]
-      },
-      {
-        "appName": "Subway Surfers San Francisco",
-        "desc": "Juego web cargado desde el catálogo externo.",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
-        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/Tb7xyAeay4O9x3v949kvWw1DVPYn0huw_L4-xlQ",
-        "disabled": false,
-        "local": false,
-        "external": true,
-        "tags": ["arcade", "carreras", "web"]
-      },
+    "Páginas web": [
       {
         "appName": "3D Flight Simulator",
         "desc": "Simulador web disponible en el catálogo externo.",
@@ -533,16 +513,6 @@
         "local": false,
         "external": true,
         "tags": ["arcade", "reflejos", "web"]
-      },
-      {
-        "appName": "Minecraft 1.12",
-        "desc": "Otra versión web de Minecraft desde Classroom.",
-        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
-        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/flH9ZbX0CbU6HfGcH-3cw8A",
-        "disabled": false,
-        "local": false,
-        "external": true,
-        "tags": ["minecraft", "sandbox", "web"]
       },
       {
         "appName": "Circle Pong",

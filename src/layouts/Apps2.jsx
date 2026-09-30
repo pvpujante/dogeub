@@ -79,6 +79,7 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
 
 const CATEGORY_LABELS = {
   Popular: 'Juegos de prueba',
+  'Páginas web': 'Páginas web',
 };
 
 const CategoryRow = memo(({ category, games, onClick, onViewMore, fallback, onImgError, theme, styles }) => {
@@ -430,7 +431,13 @@ const Games = memo(() => {
         </>
       ) : (
         <div className="space-y-2">
-          {Object.entries(data).map(([cat, games]) => (
+          {Object.entries(data)
+            .sort(([categoryA], [categoryB]) => {
+              if (categoryA === 'Páginas web') return -1;
+              if (categoryB === 'Páginas web') return 1;
+              return 0;
+            })
+            .map(([cat, games]) => (
             <CategoryRow
               key={cat}
               category={cat}
