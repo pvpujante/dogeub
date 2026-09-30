@@ -174,6 +174,71 @@
   "games": {
     "Popular": [
       {
+        "appName": "Clover Pit",
+        "desc": "Juego de cartas y riesgo con estética arcade oscura.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=store.steampowered.com",
+        "url": "https://store.steampowered.com/app/2818150/Clover_Pit/",
+        "disabled": false,
+        "local": false,
+        "featured": true,
+        "tags": ["cartas", "estrategia", "arcade"]
+      },
+      {
+        "appName": "Ant Blox",
+        "desc": "Arcade de acción con insectos, bloques y humor retro.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=itch.io",
+        "url": "https://itch.io/games/tag-arcade",
+        "disabled": false,
+        "local": false,
+        "tags": ["arcade", "accion", "indie"]
+      },
+      {
+        "appName": "Omori",
+        "desc": "Aventura narrativa y RPG con una estética dibujada única.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=omori-game.com",
+        "url": "https://www.omori-game.com/",
+        "disabled": false,
+        "local": false,
+        "tags": ["aventura", "rpg", "historia"]
+      },
+      {
+        "appName": "Karlson",
+        "desc": "Shooter de movimiento rápido con físicas y parkour.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=itch.io",
+        "url": "https://danidev.itch.io/karlson",
+        "disabled": false,
+        "local": false,
+        "tags": ["accion", "shooter", "parkour"]
+      },
+      {
+        "appName": "Kindergarten",
+        "desc": "Aventura de misterio y humor negro en un colegio extraño.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=store.steampowered.com",
+        "url": "https://store.steampowered.com/app/589590/Kindergarten/",
+        "disabled": false,
+        "local": false,
+        "tags": ["aventura", "misterio", "indie"]
+      },
+      {
+        "appName": "Buckshot Roulette",
+        "desc": "Duelo de riesgo y estrategia contra una escopeta misteriosa.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=store.steampowered.com",
+        "url": "https://store.steampowered.com/app/2835570/Buckshot_Roulette/",
+        "disabled": false,
+        "local": false,
+        "featured": true,
+        "tags": ["estrategia", "terror", "riesgo"]
+      },
+      {
+        "appName": "Celeste",
+        "desc": "Plataformas preciso y desafiante con una gran banda sonora.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=celestegame.com",
+        "url": "https://www.celestegame.com/",
+        "disabled": false,
+        "local": false,
+        "tags": ["plataformas", "reto", "indie"]
+      },
+      {
         "appName": "Silent Space Marine",
         "desc": "Aventura espacial y combate retro directamente en el navegador.",
         "icon": "https://www.google.com/s2/favicons?sz=128&domain=silentspacemarine.com",
