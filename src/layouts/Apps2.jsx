@@ -77,7 +77,12 @@ const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemSt
   );
 });
 
+const CATEGORY_LABELS = {
+  Popular: 'Juegos de prueba',
+};
+
 const CategoryRow = memo(({ category, games, onClick, onViewMore, fallback, onImgError, theme, styles }) => {
+  const displayCategory = CATEGORY_LABELS[category] || category;
   const ref = useRef(null);
 
   const scroll = (dir) => {
@@ -93,12 +98,12 @@ const CategoryRow = memo(({ category, games, onClick, onViewMore, fallback, onIm
     <div className="mb-3 max-w-7xl mx-auto px-9">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{category}</h2>
+          <h2 className="text-2xl font-bold">{displayCategory}</h2>
           <button
             onClick={() => onViewMore(category)}
             className="text-xs px-3 py-1 rounded-full bg-[#ffffff10] hover:bg-[#ffffff18] transition-colors"
           >
-            View more
+            Ver más
           </button>
         </div>
         <div className="flex gap-2">
@@ -120,7 +125,8 @@ const CategoryRow = memo(({ category, games, onClick, onViewMore, fallback, onIm
       </div>
       <div
         ref={ref}
-        className="flex gap-1 overflow-x-auto pb-2 -ml-3 scrollbar-hide"
+        className="grid grid-cols-[repeat(auto-fill,minmax(176px,1fr))] gap-1 pb-2"
+        data-category={displayCategory}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {games.map((game) => (
