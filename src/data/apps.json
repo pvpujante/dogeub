@@ -465,6 +465,116 @@
     ],
     "Páginas web": [
       {
+        "appName": "Mizu",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=mizu.hellohealthiness.co.uk",
+        "url": "https://mizu.hellohealthiness.co.uk",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "How Do You",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=howdoyou.mza.com.ar",
+        "url": "https://howdoyou.mza.com.ar",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Boats",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=boats.hard.yachts",
+        "url": "https://boats.hard.yachts",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Solara",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=solara.chensf.com",
+        "url": "https://solara.chensf.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Cloudfront Web",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=cloudfront.net",
+        "url": "https://dlah6r0ddz4mx.cloudfront.net",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Amazon S3 Web",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=amazonaws.com",
+        "url": "https://s3.us-east-1.amazonaws.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Fern S3 Test",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=amazonaws.com",
+        "url": "https://fern-s3test.s3.amazonaws.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Frog Education",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=xn--ds-bja.info",
+        "url": "https://frogeducation.xn--ds-bja.info",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Dank",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=etuko.com",
+        "url": "https://dank.etuko.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "SW Metallwerkstatt",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=sw-metallwerkstatt.ch",
+        "url": "https://styhb.sw-metallwerkstatt.ch",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
+        "appName": "Bull Proxy",
+        "desc": "Página web integrada dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=s3.amazonaws.com",
+        "url": "https://bullproxy.s3.amazonaws.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["web", "integrada"]
+      },
+      {
         "appName": "3D Flight Simulator",
         "desc": "Simulador web disponible en el catálogo externo.",
         "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
