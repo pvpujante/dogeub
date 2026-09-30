@@ -463,6 +463,108 @@
         "local": true
       }
     ],
+    "Recursos externos": [
+      {
+        "appName": "Minecraft 1.8.8",
+        "desc": "Recurso jugable alojado en Classroom.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/Vs4NRBlkenH_A4mgzMGqACTh",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["minecraft", "sandbox", "web"]
+      },
+      {
+        "appName": "Subway Surfers San Francisco",
+        "desc": "Juego web cargado desde el catálogo externo.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/Tb7xyAeay4O9x3v949kvWw1DVPYn0huw_L4-xlQ",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["arcade", "carreras", "web"]
+      },
+      {
+        "appName": "3D Flight Simulator",
+        "desc": "Simulador web disponible en el catálogo externo.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/_IWTO-AQMfVRCZFYIQy2Tin6YUg",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["simulacion", "3d", "web"]
+      },
+      {
+        "appName": "Plants vs. Zombies",
+        "desc": "Estrategia y defensa en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/HmEBAChd7F8AaZQyz1GaYflL",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["estrategia", "defensa", "web"]
+      },
+      {
+        "appName": "Retro Bowl",
+        "desc": "Fútbol arcade desde el catálogo externo.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/8fO66z_pZ4kbuiQ",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["deportes", "futbol", "web"]
+      },
+      {
+        "appName": "Crossy Road",
+        "desc": "Arcade clásico cargado dentro de BusicoHub.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/5ozpllFGhb1EgCg_",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["arcade", "habilidad", "web"]
+      },
+      {
+        "appName": "Slope",
+        "desc": "Juego de velocidad y reflejos.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/ssaj59cN",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["arcade", "reflejos", "web"]
+      },
+      {
+        "appName": "Minecraft 1.12",
+        "desc": "Otra versión web de Minecraft desde Classroom.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/flH9ZbX0CbU6HfGcH-3cw8A",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["minecraft", "sandbox", "web"]
+      },
+      {
+        "appName": "Circle Pong",
+        "desc": "Pong arcade ligero para jugar al instante.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/AgyI8msHTRx1Px8O",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["arcade", "puzzle", "web"]
+      },
+      {
+        "appName": "Friday Night Funkin'",
+        "desc": "Ritmo y música en una experiencia web.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=lgbtqresources.unblinternetuniversity.workers.dev",
+        "url": "https://lgbtqresources.unblinternetuniversity.workers.dev/resources/Th7GPzYd0zgjkGkSpdDHnBolBZw",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["musica", "ritmo", "web"]
+      }
+    ],
     "Action": [
       {
         "appName": "1v1.lol",
