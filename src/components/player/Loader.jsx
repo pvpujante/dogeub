@@ -21,10 +21,19 @@ import DoomFrame from './DoomFrame';
 const Loader = ({ theme, app }) => {
   const nav = useNavigate();
   const gmRef = useRef(null);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(1.25);
+  const [pointer, setPointer] = useState({ x: 50, y: 50 });
   const { gmUrl, loading, downloading } = useLocalGmLoader(app);
   const isLocal = app?.local;
   const activeFrameRef = loaderStore((state) => state.activeFrameRef);
+
+  const handlePointerMove = useCallback((event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPointer({
+      x: Math.round(((event.clientX - rect.left) / rect.width) * 100),
+      y: Math.round(((event.clientY - rect.top) / rect.height) * 100),
+    });
+  }, []);
 
   const fs = useCallback(() => {
     if (gmRef.current) {
@@ -45,13 +54,16 @@ const Loader = ({ theme, app }) => {
   }, []);
 
   return (
-    <div
-      className={clsx(
-        'playerLoader flex flex-col h-[calc(100vh-94px)] w-full rounded-2xl',
-        theming.appItemColor,
-        theming[`theme-${theme || 'default'}`],
-      )}
-    >
+      <div
+        className={clsx(
+          'playerLoader flex flex-col h-[calc(100vh-94px)] w-full rounded-2xl',
+          theming.appItemColor,
+          theming[`theme-${theme || 'default'}`],
+        )}
+        style={{ '--pointer-x': `${pointer.x}%`, '--pointer-y': `${pointer.y}%` }}
+        onMouseMove={handlePointerMove}
+        onMouseLeave={() => setPointer({ x: 50, y: 50 })}
+      >
       <div className="gameTopbar">
         <div className="gameIdentity">
           <InfoCard app={app} theme={theme} />
@@ -88,8 +100,13 @@ const Loader = ({ theme, app }) => {
             ref={gmRef}
             title={`${app?.appName || 'Juego'} integrado`}
             onContextMenu={(e) => e.preventDefault()}
-            className="gameFrame"
-            style={{ zoom: zoom }}
+            className={clsx('gameFrame', !isLocal && 'gameFrameWeb')}
+            style={isLocal ? { zoom } : {
+              width: '66.6667%',
+              height: '66.6667%',
+              transform: 'scale(1.5)',
+              transformOrigin: 'top left',
+            }}
             loading="eager"
             referrerPolicy="no-referrer"
             sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-pointer-lock"

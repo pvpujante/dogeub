@@ -185,10 +185,32 @@ input {
 }
 
 .playerLoader {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
   position: relative;
   min-height: min(780px, calc(100vh - 94px));
-  border: 1px solid rgba(249, 115, 22, .24);
-  box-shadow: 0 22px 70px rgba(0, 0, 0, .38), 0 0 0 1px rgba(251, 191, 36, .04);
+  border: 1px solid rgba(249, 115, 22, .42);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(249, 115, 22, .2), transparent 28%),
+    linear-gradient(135deg, rgba(30, 12, 4, .96), rgba(10, 7, 6, .98));
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .48), 0 0 0 1px rgba(251, 191, 36, .08), 0 0 55px rgba(249, 115, 22, .1);
+}
+
+.playerLoader::after {
+  content: '☠  ✦  🎃  ✦  ☠';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  color: rgba(249, 115, 22, .08);
+  font-size: clamp(4rem, 13vw, 10rem);
+  letter-spacing: .25em;
+  transform: translate(calc((var(--pointer-x) - 50%) / -12), calc((var(--pointer-y) - 50%) / -12));
+  transition: transform 120ms ease-out;
 }
 
 .playerLoader::before {
@@ -206,6 +228,13 @@ input {
   text-shadow: 0 0 18px rgba(249, 115, 22, .8);
 }
 
+.gameTopbar,
+.playerLoader > .relative,
+.playerLoader > .p-2\\.5 {
+  position: relative;
+  z-index: 1;
+}
+
 .gameTopbar {
   background: linear-gradient(180deg, rgba(249, 115, 22, .16), rgba(255, 255, 255, .018));
   border-bottom-color: rgba(249, 115, 22, .22);
@@ -219,6 +248,27 @@ input {
 .playerLoader > .relative {
   flex: 1 1 auto;
   min-height: 0;
+  min-height: clamp(520px, calc(100vh - 178px), 900px);
+  background: #050303;
+}
+
+.playerLoader .gameFrame {
+  min-height: clamp(520px, calc(100vh - 178px), 900px);
+  transform-origin: center center;
+}
+
+.playerLoader .gameFrameWeb {
+  width: 66.6667%;
+  height: 66.6667%;
+  transform: scale(1.5);
+  transform-origin: top left;
+}
+
+.playerLoader > .p-2\.5 {
+  position: relative;
+  z-index: 3;
+  background: rgba(20, 8, 3, .92);
+  border-top-color: rgba(249, 115, 22, .22);
 }
 
 @media (max-width: 640px) {
