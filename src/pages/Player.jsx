@@ -25,7 +25,7 @@ const Player = () => {
   return (
     <>
       <Nav />
-      <main className="w-[min(1180px,calc(100%-32px))] mx-auto flex flex-col gap-3 mt-4 mb-8">
+      <main className="playerShell w-[min(1400px,calc(100%-24px))] mx-auto flex flex-col gap-2 mt-2 mb-4">
         <Breadcrumb theme={options.theme} name={app.appName} />
         <Loader theme={options.theme} app={app} />
       </main>

@@ -47,7 +47,7 @@ const Loader = ({ theme, app }) => {
   return (
     <div
       className={clsx(
-        'flex flex-col h-[calc(100vh-38px)] w-full rounded-xl',
+        'playerLoader flex flex-col h-[calc(100vh-94px)] w-full rounded-2xl',
         theming.appItemColor,
         theming[`theme-${theme || 'default'}`],
       )}
