@@ -137,8 +137,22 @@ input {
 .gamesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
-  gap: 0.2rem;
+  gap: 0.75rem;
   align-items: stretch;
+  padding: 0.35rem;
+}
+
+/* Halloween catalog cards: warm borders and clear spacing keep the grid readable. */
+.gamesGrid .app {
+  min-width: 0;
+  background: linear-gradient(145deg, rgba(47, 22, 8, .94), rgba(20, 12, 8, .96));
+  border-color: rgba(249, 115, 22, .22);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22), inset 0 1px rgba(251, 191, 36, .08);
+}
+
+.gamesGrid .app:hover {
+  border-color: rgba(251, 191, 36, .62);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, .34), 0 0 22px rgba(249, 115, 22, .14);
 }
 
 .gamesGrid > .app {
@@ -246,8 +260,13 @@ input {
 }
 
 .playerLoader > .relative {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+  width: 100%;
+  height: clamp(320px, calc(100vh - 170px), 620px);
+  max-height: 620px;
   min-height: 0;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
   background: #050303;
 }
 
@@ -257,6 +276,13 @@ input {
   min-height: 0;
   transform: none;
   transform-origin: center center;
+}
+
+@media (max-width: 700px) {
+  .playerLoader > .relative {
+    height: clamp(260px, calc(100vh - 210px), 460px);
+    aspect-ratio: auto;
+  }
 }
 
 .playerLoader .gameFrameWeb {

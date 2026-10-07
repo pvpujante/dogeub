@@ -101,7 +101,13 @@ const Loader = ({ theme, app }) => {
             title={`${app?.appName || 'Juego'} integrado`}
             onContextMenu={(e) => e.preventDefault()}
             className={clsx('gameFrame', !isLocal && 'gameFrameWeb')}
-            style={isLocal ? { zoom } : undefined}
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'block',
+              border: 0,
+              ...(isLocal ? { zoom } : {}),
+            }}
             loading="eager"
             referrerPolicy="no-referrer"
             sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-pointer-lock"
