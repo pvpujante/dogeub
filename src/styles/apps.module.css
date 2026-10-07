@@ -1,5 +1,7 @@
 .appContainer {
   --hub-accent: #8b5cf6;
+  --halloween-orange: #f97316;
+  --halloween-amber: #fbbf24;
   --hub-accent-soft: rgba(139, 92, 246, 0.16);
   font-family:
     'SFProText',
@@ -135,8 +137,22 @@ input {
 .gamesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
-  gap: 0.2rem;
+  gap: 0.75rem;
   align-items: stretch;
+  padding: 0.35rem;
+}
+
+/* Halloween catalog cards: warm borders and clear spacing keep the grid readable. */
+.gamesGrid .app {
+  min-width: 0;
+  background: linear-gradient(145deg, rgba(47, 22, 8, .94), rgba(20, 12, 8, .96));
+  border-color: rgba(249, 115, 22, .22);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22), inset 0 1px rgba(251, 191, 36, .08);
+}
+
+.gamesGrid .app:hover {
+  border-color: rgba(251, 191, 36, .62);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, .34), 0 0 22px rgba(249, 115, 22, .14);
 }
 
 .gamesGrid > .app {
@@ -172,6 +188,134 @@ input {
 .gameIconButton { display: grid; place-items: center; width: 30px; height: 30px; color: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.1); border-radius: 9px; background: rgba(255,255,255,.06); transition: background .18s ease, color .18s ease; }
 .gameIconButton:hover { color: white; background: rgba(255,255,255,.14); }
 .gameFrame { width: 100%; height: 100%; display: block; border: 0; background: #050506; }
+
+/* Seasonal Halloween skin: decorative only, without covering controls or content. */
+:global(body) {
+  background: #090706;
+}
+
+.playerShell {
+  position: relative;
+}
+
+.playerLoader {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  position: relative;
+  min-height: min(780px, calc(100vh - 94px));
+  border: 1px solid rgba(249, 115, 22, .42);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(249, 115, 22, .2), transparent 28%),
+    linear-gradient(135deg, rgba(30, 12, 4, .96), rgba(10, 7, 6, .98));
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .48), 0 0 0 1px rgba(251, 191, 36, .08), 0 0 55px rgba(249, 115, 22, .1);
+}
+
+.playerLoader::after {
+  content: '☠  ✦  🎃  ✦  ☠';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  color: rgba(249, 115, 22, .08);
+  font-size: clamp(4rem, 13vw, 10rem);
+  letter-spacing: .25em;
+  transform: translate(calc((var(--pointer-x) - 50%) / -12), calc((var(--pointer-y) - 50%) / -12));
+  transition: transform 120ms ease-out;
+}
+
+.playerLoader::before {
+  content: '☠  HALLOWEEN  ☠';
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  color: rgba(251, 191, 36, .7);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-shadow: 0 0 18px rgba(249, 115, 22, .8);
+}
+
+.gameTopbar,
+.playerLoader > .relative,
+.playerLoader > .p-2\\.5 {
+  position: relative;
+  z-index: 1;
+}
+
+.gameTopbar {
+  background: linear-gradient(180deg, rgba(249, 115, 22, .16), rgba(255, 255, 255, .018));
+  border-bottom-color: rgba(249, 115, 22, .22);
+}
+
+.gameTopbar .gameSourceBadge,
+.gameTopbar .gameIconButton {
+  border-color: rgba(249, 115, 22, .25);
+}
+
+.playerLoader > .relative {
+  flex: 0 1 auto;
+  width: 100%;
+  height: clamp(320px, calc(100vh - 170px), 620px);
+  max-height: 620px;
+  min-height: 0;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  background: #050303;
+}
+
+.playerLoader .gameFrame {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  transform: none;
+  transform-origin: center center;
+}
+
+@media (max-width: 700px) {
+  .playerLoader > .relative {
+    height: clamp(260px, calc(100vh - 210px), 460px);
+    aspect-ratio: auto;
+  }
+}
+
+.playerLoader .gameFrameWeb {
+  width: 87%;
+  height: 87%;
+  transform: scale(1.15);
+  transform-origin: top left;
+}
+
+/* Mantiene la ambientación de Halloween activa en la vista de juego por defecto. */
+.playerLoader {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(249, 115, 22, .28), transparent 30%),
+    radial-gradient(circle at 82% 88%, rgba(120, 35, 8, .34), transparent 34%),
+    linear-gradient(135deg, #241006 0%, #100908 52%, #090607 100%);
+}
+
+.playerLoader::after {
+  color: rgba(249, 115, 22, .13);
+  text-shadow: 0 0 32px rgba(249, 115, 22, .16);
+}
+
+.playerLoader > .p-2\.5 {
+  position: relative;
+  z-index: 3;
+  background: rgba(20, 8, 3, .92);
+  border-top-color: rgba(249, 115, 22, .22);
+}
+
+@media (max-width: 640px) {
+  .playerLoader { min-height: calc(100vh - 106px); border-radius: 14px; }
+  .playerLoader::before { font-size: 8px; letter-spacing: .12em; }
+}
 
 @media (max-width: 640px) {
   .gameTopbar { padding-inline: 9px; }
