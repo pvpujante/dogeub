@@ -645,6 +645,252 @@
         "tags": ["musica", "ritmo", "web"]
       }
     ],
+    "Mundo abierto / otros": [
+      {
+        "appName": "GTA 5",
+        "desc": "Experiencia web de mundo abierto.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=gta.deloskiyt.pl",
+        "url": "https://gta.deloskiyt.pl",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["gta", "mundo abierto", "web"]
+      },
+      {
+        "appName": "GTA Vice City",
+        "desc": "Aventura web inspirada en Vice City.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=joncodeofficial.github.io",
+        "url": "https://joncodeofficial.github.io/gta-vice-city/",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["gta", "accion", "web"]
+      },
+      {
+        "appName": "The Simpsons: Hit & Run",
+        "desc": "Juego web integrado con carga WASM.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=shar-wasm.cjoseph.workers.dev",
+        "url": "https://shar-wasm.cjoseph.workers.dev/?skipmovie",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["simpsons", "carreras", "web"]
+      },
+      {
+        "appName": "Skate 3",
+        "desc": "Skateboarding en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=skate.aaddpp.lol",
+        "url": "https://skate.aaddpp.lol",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["skate", "deportes", "web"]
+      },
+      {
+        "appName": "Skate Rust",
+        "desc": "Juego web de skate y acción.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=global-terror.net",
+        "url": "https://global-terror.net",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["skate", "accion", "web"]
+      },
+      {
+        "appName": "PES 6",
+        "desc": "Fútbol clásico jugable desde el navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pes6.optijuegos.net",
+        "url": "https://pes6.optijuegos.net",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["futbol", "deportes", "web"]
+      },
+      {
+        "appName": "Hedgewars",
+        "desc": "Estrategia y artillería por turnos.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=webwars.link",
+        "url": "https://webwars.link",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["estrategia", "web"]
+      },
+      {
+        "appName": "Más GTA / Minecraft",
+        "desc": "Colección web de experiencias adicionales.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=wasmarcade.com",
+        "url": "https://wasmarcade.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["gta", "minecraft", "web"]
+      }
+    ],
+    "Zombies": [
+      {
+        "appName": "BO1 Zombies",
+        "desc": "Zombis y supervivencia en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=vel.gg",
+        "url": "https://vel.gg/bo1z",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["zombies", "accion", "web"]
+      },
+      {
+        "appName": "Moon Zombies",
+        "desc": "Supervivencia contra zombis.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pages.dev",
+        "url": "https://moon-zombies.pages.dev",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["zombies", "accion", "web"]
+      },
+      {
+        "appName": "Kino der Toten",
+        "desc": "Mapa de zombis para jugar online.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pages.dev",
+        "url": "https://kino-der-toten.pages.dev",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["zombies", "terror", "web"]
+      },
+      {
+        "appName": "BO3 Cheese Cube",
+        "desc": "Desafío de supervivencia en un mapa cerrado.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pages.dev",
+        "url": "https://cheese-cube.pages.dev",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["zombies", "accion", "web"]
+      }
+    ],
+    "Shooters": [
+      {
+        "appName": "Black Ops 2",
+        "desc": "Shooter web de acción rápida.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=luckeysystems.com",
+        "url": "https://vibeslops.luckeysystems.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "accion", "web"]
+      },
+      {
+        "appName": "Modern Warfare 2",
+        "desc": "Shooter web integrado.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=railway.app",
+        "url": "https://ovz-game-production.up.railway.app",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "accion", "web"]
+      },
+      {
+        "appName": "Halo CE",
+        "desc": "Acción y combate clásico en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=mitchellhynes.com",
+        "url": "https://mitchellhynes.com/halo",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "halo", "web"]
+      },
+      {
+        "appName": "Halo CE Mobile",
+        "desc": "Versión web adaptada para móvil.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=hcemobile.com",
+        "url": "https://hcemobile.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "halo", "movil"]
+      },
+      {
+        "appName": "Quake 1",
+        "desc": "Shooter clásico en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pieter.com",
+        "url": "https://q1.pieter.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "clasico", "web"]
+      },
+      {
+        "appName": "Quake 2",
+        "desc": "Shooter clásico en navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pieter.com",
+        "url": "https://q2.pieter.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "clasico", "web"]
+      },
+      {
+        "appName": "Quake 3",
+        "desc": "Combate arena desde el navegador.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pieter.com",
+        "url": "https://q3.pieter.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "arena", "web"]
+      },
+      {
+        "appName": "Return to Castle Wolfenstein",
+        "desc": "Shooter clásico de acción.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pieter.com",
+        "url": "https://rtcw.pieter.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "clasico", "web"]
+      },
+      {
+        "appName": "Unreal Tournament",
+        "desc": "Combate arena multijugador clásico.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pieter.com",
+        "url": "https://ut.pieter.com",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "arena", "web"]
+      },
+      {
+        "appName": "Half-Life",
+        "desc": "Aventura y acción clásica en web.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=pixelsuft.github.io",
+        "url": "https://pixelsuft.github.io/hl/",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "aventura", "web"]
+      },
+      {
+        "appName": "Half-Life / CS 1.6",
+        "desc": "Motor web con Half-Life y Counter-Strike.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=github.io",
+        "url": "https://x8bitrain.github.io/webXash/",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "cs", "web"]
+      },
+      {
+        "appName": "CS Surf",
+        "desc": "Surf y movimiento en Counter-Strike.",
+        "icon": "https://www.google.com/s2/favicons?sz=128&domain=surfd.net",
+        "url": "https://surfd.net",
+        "disabled": false,
+        "local": false,
+        "external": true,
+        "tags": ["shooter", "cs", "surf"]
+      }
+    ],
     "Action": [
       {
         "appName": "1v1.lol",
